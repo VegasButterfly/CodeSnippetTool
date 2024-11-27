@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CodeSnippetTool
 {
-    public partial class Snippet : Form
+    public partial class SnippetForm : Form
     {
-        public Snippet()
+        public SnippetForm()
         {
             InitializeComponent();
         }

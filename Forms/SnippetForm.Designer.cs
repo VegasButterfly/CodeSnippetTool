@@ -1,6 +1,6 @@
 ﻿namespace CodeSnippetTool
 {
-    partial class Snippet
+    partial class SnippetForm
     {
         /// <summary>
         /// Required designer variable.
