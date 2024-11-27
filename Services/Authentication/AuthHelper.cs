@@ -18,7 +18,45 @@ namespace CodeSnippetTool.Services.Authentication
                  );
                 context.SaveChanges();
             }
+        }
 
+        public static void SeedUsers()
+        {
+            using var context = new AppDbContext();
+            {
+                if (!context.Users.Any())
+                {
+                    var adminSalt = SaltIt.GenerateSalt();
+                    var demoSalt = SaltIt.GenerateSalt();
+                    var adminPasswordHash = SaltIt.HashPassword("Admin123*", adminSalt);
+                    var demoPasswordHash = SaltIt.HashPassword("Demo123*", demoSalt);
+                    var adminRole = context.Roles.SingleOrDefault(r => r.RoleName == "Admin");
+                    var demoRole = context.Roles.SingleOrDefault(r => r.RoleName == "User");
+
+                    if (adminRole != null && demoRole != null)
+                    {
+                        var users = new List<User>
+                        {
+                            new User
+                            {
+                                Username = "Admin",
+                                PasswordHash = adminPasswordHash,
+                                Salt = adminSalt,
+                                Roles = new List<Role> {adminRole}
+                            },
+                             new User
+                            {
+                            Username = "Demo",
+                            PasswordHash = demoPasswordHash,
+                            Salt = demoSalt,
+                            Roles = new List<Role> {demoRole}
+                            }
+                        };
+                        context.Users.AddRange(users);
+                        context.SaveChanges();
+                    }
+                }
+            }
         }
 
         public static void AssignRoleToUser(string username, string roleName)
