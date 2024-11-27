@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CodeSnippetTool.Services.Authentication
 {
-    public class SaltIt
+    public static class SaltIt
     {
+
         public static string GenerateSalt()
         {
             byte[] saltBytes = new byte[16];
@@ -19,13 +17,12 @@ namespace CodeSnippetTool.Services.Authentication
             return Convert.ToBase64String(saltBytes);
         }
 
-        public static string HashPassword(string password), string salt)
-           {
-            using (var sha256 = SHA256.Create())
-            {
+        public static string HashPassword(string password, string salt)
+        {
             byte[] combinedBytes = Encoding.UTF8.GetBytes(password + salt);
-            byte[] hashBytes = SHA256.ComputerHash(combinedBytes);
+            byte[] hashBytes = SHA256.HashData(combinedBytes);
             return Convert.ToBase64String(hashBytes);
-            }
-        }   
+        }
+    }
 }
+

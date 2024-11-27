@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            maskedTextBox1 = new MaskedTextBox();
+            txtUsername = new TextBox();
+            txtPassword = new MaskedTextBox();
             label1 = new Label();
             label2 = new Label();
             button1 = new Button();
@@ -37,19 +37,19 @@
             linkLabel1 = new LinkLabel();
             SuspendLayout();
             // 
-            // textBox1
+            // txtUsername
             // 
-            textBox1.Location = new Point(155, 86);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(159, 23);
-            textBox1.TabIndex = 0;
+            txtUsername.Location = new Point(155, 86);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(159, 23);
+            txtUsername.TabIndex = 0;
             // 
-            // maskedTextBox1
+            // txtPassword
             // 
-            maskedTextBox1.Location = new Point(155, 126);
-            maskedTextBox1.Name = "maskedTextBox1";
-            maskedTextBox1.Size = new Size(159, 23);
-            maskedTextBox1.TabIndex = 1;
+            txtPassword.Location = new Point(155, 126);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(159, 23);
+            txtPassword.TabIndex = 1;
             // 
             // label1
             // 
@@ -98,7 +98,7 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Alexandria Roberts";
             // 
-            // Form1
+            // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -108,18 +108,17 @@
             Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(maskedTextBox1);
-            Controls.Add(textBox1);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
             Name = "LoginForm";
-            Text = "";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private MaskedTextBox maskedTextBox1;
+        private TextBox txtUsername;
+        private MaskedTextBox txtPassword;
         private Label label1;
         private Label label2;
         private Button button1;
