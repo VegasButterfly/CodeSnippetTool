@@ -30,24 +30,25 @@
         {
             tabControl2 = new TabControl();
             tabPage4 = new TabPage();
-            button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            richTextBox3 = new RichTextBox();
-            comboBox1 = new ComboBox();
+            TranslateDeleteButton = new Button();
+            TranslateSaveButton = new Button();
+            TranslateReviewButton = new Button();
+            TranslateButton = new Button();
+            TranslationText = new RichTextBox();
+            TranslationLanguageDropdown = new ComboBox();
             tabPage5 = new TabPage();
-            richTextBox2 = new RichTextBox();
-            button1 = new Button();
+            AnalysisText = new RichTextBox();
+            AnalyzeButton = new Button();
             panel1 = new Panel();
-            richTextBox4 = new RichTextBox();
-            textBox2 = new TextBox();
+            SnippetDescription = new RichTextBox();
+            SnippetName = new TextBox();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            richTextBox1 = new RichTextBox();
+            CodeSnippetText = new RichTextBox();
             label4 = new Label();
-            button6 = new Button();
+            SnippetSaveButton = new Button();
+            SnippetLanguageDropdown = new ComboBox();
             tabControl2.SuspendLayout();
             tabPage4.SuspendLayout();
             panel1.SuspendLayout();
@@ -65,12 +66,12 @@
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(button5);
-            tabPage4.Controls.Add(button4);
-            tabPage4.Controls.Add(button3);
-            tabPage4.Controls.Add(button2);
-            tabPage4.Controls.Add(richTextBox3);
-            tabPage4.Controls.Add(comboBox1);
+            tabPage4.Controls.Add(TranslateDeleteButton);
+            tabPage4.Controls.Add(TranslateSaveButton);
+            tabPage4.Controls.Add(TranslateReviewButton);
+            tabPage4.Controls.Add(TranslateButton);
+            tabPage4.Controls.Add(TranslationText);
+            tabPage4.Controls.Add(TranslationLanguageDropdown);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -79,58 +80,58 @@
             tabPage4.Text = "Translation";
             tabPage4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // TranslateDeleteButton
             // 
-            button5.Location = new Point(476, 419);
-            button5.Name = "button5";
-            button5.Size = new Size(26, 23);
-            button5.TabIndex = 5;
-            button5.Text = "Delete";
-            button5.UseVisualStyleBackColor = true;
+            TranslateDeleteButton.Location = new Point(476, 419);
+            TranslateDeleteButton.Name = "TranslateDeleteButton";
+            TranslateDeleteButton.Size = new Size(26, 23);
+            TranslateDeleteButton.TabIndex = 5;
+            TranslateDeleteButton.Text = "Delete";
+            TranslateDeleteButton.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // TranslateSaveButton
             // 
-            button4.Location = new Point(396, 420);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 4;
-            button4.Text = "Save";
-            button4.UseVisualStyleBackColor = true;
+            TranslateSaveButton.Location = new Point(396, 420);
+            TranslateSaveButton.Name = "TranslateSaveButton";
+            TranslateSaveButton.Size = new Size(75, 23);
+            TranslateSaveButton.TabIndex = 4;
+            TranslateSaveButton.Text = "Save";
+            TranslateSaveButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // TranslateReviewButton
             // 
-            button3.Location = new Point(17, 421);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 3;
-            button3.Text = "Review";
-            button3.UseVisualStyleBackColor = true;
+            TranslateReviewButton.Location = new Point(17, 421);
+            TranslateReviewButton.Name = "TranslateReviewButton";
+            TranslateReviewButton.Size = new Size(75, 23);
+            TranslateReviewButton.TabIndex = 3;
+            TranslateReviewButton.Text = "Review";
+            TranslateReviewButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // TranslateButton
             // 
-            button2.Location = new Point(427, 11);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 2;
-            button2.Text = "AI Translate";
-            button2.UseVisualStyleBackColor = true;
+            TranslateButton.Location = new Point(427, 11);
+            TranslateButton.Name = "TranslateButton";
+            TranslateButton.Size = new Size(75, 23);
+            TranslateButton.TabIndex = 2;
+            TranslateButton.Text = "AI Translate";
+            TranslateButton.UseVisualStyleBackColor = true;
             // 
-            // richTextBox3
+            // TranslationText
             // 
-            richTextBox3.Location = new Point(12, 43);
-            richTextBox3.Name = "richTextBox3";
-            richTextBox3.Size = new Size(490, 371);
-            richTextBox3.TabIndex = 1;
-            richTextBox3.Text = "";
+            TranslationText.Location = new Point(12, 43);
+            TranslationText.Name = "TranslationText";
+            TranslationText.Size = new Size(490, 371);
+            TranslationText.TabIndex = 1;
+            TranslationText.Text = "";
             // 
-            // comboBox1
+            // TranslationLanguageDropdown
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 12);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
-            comboBox1.TabIndex = 0;
-            comboBox1.Text = "Language";
+            TranslationLanguageDropdown.FormattingEnabled = true;
+            TranslationLanguageDropdown.Location = new Point(12, 12);
+            TranslationLanguageDropdown.Name = "TranslationLanguageDropdown";
+            TranslationLanguageDropdown.Size = new Size(121, 23);
+            TranslationLanguageDropdown.TabIndex = 0;
+            TranslationLanguageDropdown.Text = "Language";
             // 
             // tabPage5
             // 
@@ -142,27 +143,27 @@
             tabPage5.Text = "Translation2";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // richTextBox2
+            // AnalysisText
             // 
-            richTextBox2.Location = new Point(407, 422);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(352, 110);
-            richTextBox2.TabIndex = 13;
-            richTextBox2.Text = "";
+            AnalysisText.Location = new Point(407, 422);
+            AnalysisText.Name = "AnalysisText";
+            AnalysisText.Size = new Size(352, 110);
+            AnalysisText.TabIndex = 13;
+            AnalysisText.Text = "";
             // 
-            // button1
+            // AnalyzeButton
             // 
-            button1.Location = new Point(405, 393);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 14;
-            button1.Text = "AI Analyze";
-            button1.UseVisualStyleBackColor = true;
+            AnalyzeButton.Location = new Point(405, 393);
+            AnalyzeButton.Name = "AnalyzeButton";
+            AnalyzeButton.Size = new Size(75, 23);
+            AnalyzeButton.TabIndex = 14;
+            AnalyzeButton.Text = "AI Analyze";
+            AnalyzeButton.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            panel1.Controls.Add(richTextBox4);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(SnippetDescription);
+            panel1.Controls.Add(SnippetName);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Location = new Point(29, 51);
@@ -170,20 +171,20 @@
             panel1.Size = new Size(357, 493);
             panel1.TabIndex = 10;
             // 
-            // richTextBox4
+            // SnippetDescription
             // 
-            richTextBox4.Location = new Point(17, 103);
-            richTextBox4.Name = "richTextBox4";
-            richTextBox4.Size = new Size(313, 198);
-            richTextBox4.TabIndex = 6;
-            richTextBox4.Text = "";
+            SnippetDescription.Location = new Point(16, 96);
+            SnippetDescription.Name = "SnippetDescription";
+            SnippetDescription.Size = new Size(313, 198);
+            SnippetDescription.TabIndex = 6;
+            SnippetDescription.Text = "";
             // 
-            // textBox2
+            // SnippetName
             // 
-            textBox2.Location = new Point(16, 43);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(314, 23);
-            textBox2.TabIndex = 5;
+            SnippetName.Location = new Point(16, 43);
+            SnippetName.Name = "SnippetName";
+            SnippetName.Size = new Size(314, 23);
+            SnippetName.TabIndex = 5;
             // 
             // label3
             // 
@@ -212,13 +213,13 @@
             label1.TabIndex = 12;
             label1.Text = "Code Snippet";
             // 
-            // richTextBox1
+            // CodeSnippetText
             // 
-            richTextBox1.Location = new Point(405, 80);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(354, 298);
-            richTextBox1.TabIndex = 11;
-            richTextBox1.Text = "";
+            CodeSnippetText.Location = new Point(405, 80);
+            CodeSnippetText.Name = "CodeSnippetText";
+            CodeSnippetText.Size = new Size(354, 298);
+            CodeSnippetText.TabIndex = 11;
+            CodeSnippetText.Text = "";
             // 
             // label4
             // 
@@ -229,29 +230,40 @@
             label4.TabIndex = 16;
             label4.Text = "Snippet";
             // 
-            // button6
+            // SnippetSaveButton
             // 
-            button6.Location = new Point(1173, 550);
-            button6.Name = "button6";
-            button6.Size = new Size(142, 33);
-            button6.TabIndex = 17;
-            button6.Text = "SAVE";
-            button6.UseVisualStyleBackColor = true;
+            SnippetSaveButton.Location = new Point(1173, 550);
+            SnippetSaveButton.Name = "SnippetSaveButton";
+            SnippetSaveButton.Size = new Size(142, 33);
+            SnippetSaveButton.TabIndex = 17;
+            SnippetSaveButton.Text = "SAVE";
+            SnippetSaveButton.UseVisualStyleBackColor = true;
+            SnippetSaveButton.Click += SnippetSaveButton_Click;
             // 
-            // Snippet
+            // SnippetLanguageDropdown
+            // 
+            SnippetLanguageDropdown.FormattingEnabled = true;
+            SnippetLanguageDropdown.Location = new Point(491, 51);
+            SnippetLanguageDropdown.Name = "SnippetLanguageDropdown";
+            SnippetLanguageDropdown.Size = new Size(121, 23);
+            SnippetLanguageDropdown.TabIndex = 18;
+            SnippetLanguageDropdown.Text = "Language";
+            // 
+            // SnippetForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1349, 595);
-            Controls.Add(button6);
+            Controls.Add(SnippetLanguageDropdown);
+            Controls.Add(SnippetSaveButton);
             Controls.Add(label4);
             Controls.Add(tabControl2);
-            Controls.Add(richTextBox2);
-            Controls.Add(button1);
+            Controls.Add(AnalysisText);
+            Controls.Add(AnalyzeButton);
             Controls.Add(panel1);
             Controls.Add(label1);
-            Controls.Add(richTextBox1);
-            Name = "Snippet";
+            Controls.Add(CodeSnippetText);
+            Name = "SnippetForm";
             Text = "Snippet";
             tabControl2.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
@@ -265,23 +277,24 @@
 
         private TabControl tabControl2;
         private TabPage tabPage4;
-        private Button button5;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private RichTextBox richTextBox3;
-        private ComboBox comboBox1;
+        private Button TranslateDeleteButton;
+        private Button TranslateSaveButton;
+        private Button TranslateReviewButton;
+        private Button TranslateButton;
+        private RichTextBox TranslationText;
+        private ComboBox TranslationLanguageDropdown;
         private TabPage tabPage5;
-        private RichTextBox richTextBox2;
-        private Button button1;
+        private RichTextBox AnalysisText;
+        private Button AnalyzeButton;
         private Panel panel1;
-        private RichTextBox richTextBox4;
-        private TextBox textBox2;
+        private RichTextBox SnippetDescription;
+        private TextBox SnippetName;
         private Label label3;
         private Label label2;
         private Label label1;
-        private RichTextBox richTextBox1;
+        private RichTextBox CodeSnippetText;
         private Label label4;
-        private Button button6;
+        private Button SnippetSaveButton;
+        private ComboBox SnippetLanguageDropdown;
     }
 }

@@ -8,11 +8,10 @@ namespace CodeSnippetTool
     {
         public LoginForm()
         {
-            InitializeComponent();
-            button1.Click += ButtonLogin_Click;
+            InitializeComponent();            
         }
 
-        private void ButtonLogin_Click(object? sender, EventArgs e)
+        private void LoginButton_Click(object? sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
@@ -35,6 +34,10 @@ namespace CodeSnippetTool
 
             if (hashedPassword == user.PasswordHash)
             {
+                UserSession.CurrentUserId = user.Id;
+                UserSession.CurrentUsername = user.Username;
+                UserSession.CurrentUser = user;
+
                 MessageBox.Show($"Welcome, {username}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Proceed to the main application
                 // Hide or close this form, then open the main form.
@@ -48,5 +51,6 @@ namespace CodeSnippetTool
             }
 
         }
+           
     }
 }

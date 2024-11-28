@@ -32,9 +32,9 @@
             txtPassword = new MaskedTextBox();
             label1 = new Label();
             label2 = new Label();
-            button1 = new Button();
             label3 = new Label();
             linkLabel1 = new LinkLabel();
+            LoginButton = new Button();
             SuspendLayout();
             // 
             // txtUsername
@@ -48,6 +48,7 @@
             // 
             txtPassword.Location = new Point(155, 126);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(159, 23);
             txtPassword.TabIndex = 1;
             // 
@@ -69,15 +70,6 @@
             label2.TabIndex = 3;
             label2.Text = "Password:";
             // 
-            // button1
-            // 
-            button1.Location = new Point(140, 179);
-            button1.Name = "button1";
-            button1.Size = new Size(164, 23);
-            button1.TabIndex = 4;
-            button1.Text = "Login";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -98,14 +90,24 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Alexandria Roberts";
             // 
+            // LoginButton
+            // 
+            LoginButton.Location = new Point(170, 173);
+            LoginButton.Name = "LoginButton";
+            LoginButton.Size = new Size(125, 35);
+            LoginButton.TabIndex = 7;
+            LoginButton.Text = "Login";
+            LoginButton.UseVisualStyleBackColor = true;
+            LoginButton.Click += LoginButton_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(425, 270);
+            Controls.Add(LoginButton);
             Controls.Add(linkLabel1);
             Controls.Add(label3);
-            Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtPassword);
@@ -121,8 +123,8 @@
         private MaskedTextBox txtPassword;
         private Label label1;
         private Label label2;
-        private Button button1;
         private Label label3;
         private LinkLabel linkLabel1;
+        private Button LoginButton;
     }
 }

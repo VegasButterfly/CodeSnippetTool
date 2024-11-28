@@ -1,10 +1,5 @@
 ﻿using CodeSnippetTool.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeSnippetTool.Data
 {
@@ -22,37 +17,42 @@ namespace CodeSnippetTool.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // User-Roles M:M Relationship
             modelBuilder.Entity<User>()
-        .HasMany(u => u.Roles)
-        .WithMany(r => r.Users)
-        .UsingEntity(j => j.ToTable("UserRoles"));
+                .HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserRoles",
+                    j => j.HasOne<Role>().WithMany().HasForeignKey("RoleId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId"),
+                    j => j.HasKey("UserId", "RoleId"));
 
+            // Role
             modelBuilder.Entity<Role>()
                 .Property(r => r.RoleName)
                 .IsRequired();
 
-            modelBuilder.Entity<Snippet>()
-    .HasOne(s => s.CreatedBy)
-    .WithMany(u => u.Snippets)
-    .HasForeignKey(s => s.CreatedById)
-    .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Role>()
+                .HasIndex(r => r.RoleName)
+                .IsUnique();
 
+            // User
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            // Snippet Relationships
             modelBuilder.Entity<Snippet>()
-                .HasOne(s => s.ReviewedBy)
-                .WithMany()
-                .HasForeignKey(s => s.ReviewedById)
+                .HasOne(s => s.CreatedBy)
+                .WithMany(u => u.Snippets)
+                .HasForeignKey(s => s.CreatedById)
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Snippet>()
-                .Property(s => s.IsDeleted)
-                .HasDefaultValue(false);
-
-            modelBuilder.Entity<Snippet>()
-              .HasQueryFilter(s => !s.IsDeleted);
-
-            modelBuilder.Entity<Role>()
-                .Property(r => r.RoleName)
-                .IsRequired();
+                .HasOne(s => s.ReviewedBy)
+                .WithMany(u => u.ReviewedSnippets)
+                .HasForeignKey(s => s.ReviewedById)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Snippet>()
                 .HasOne(s => s.Language)
@@ -60,14 +60,22 @@ namespace CodeSnippetTool.Data
                 .HasForeignKey(s => s.LanguageId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            // Default Values and Filters
             modelBuilder.Entity<Snippet>()
-               .Property(s => s.CreatedDate)
-               .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                .Property(s => s.IsDeleted)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<Snippet>()
+                .HasQueryFilter(s => !s.IsDeleted);
+
+            modelBuilder.Entity<Snippet>()
+                .Property(s => s.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             modelBuilder.Entity<Snippet>()
                 .Property(s => s.ReviewedDate)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .IsRequired(false);
         }
-
     }
 }

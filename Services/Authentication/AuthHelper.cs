@@ -6,9 +6,8 @@ namespace CodeSnippetTool.Services.Authentication
 {
     public class AuthHelper
     {
-        public static void SeedRoles()
-        {
-            using var context = new AppDbContext();
+        public static void SeedRoles(AppDbContext context)
+        {            
             if (!context.Roles.Any())
             {
                 context.Roles.AddRange(
@@ -20,9 +19,8 @@ namespace CodeSnippetTool.Services.Authentication
             }
         }
 
-        public static void SeedUsers()
-        {
-            using var context = new AppDbContext();
+        public static void SeedUsers(AppDbContext context)
+        {            
             {
                 if (!context.Users.Any())
                 {
@@ -59,9 +57,8 @@ namespace CodeSnippetTool.Services.Authentication
             }
         }
 
-        public static void AssignRoleToUser(string username, string roleName)
+        public static void AssignRoleToUser(AppDbContext context, string username, string roleName)
         {
-            using var context = new AppDbContext();
             var user = context.Users.Include(u => u.Roles).FirstOrDefault(u => u.Username == username);
             var role = context.Roles.FirstOrDefault(r => r.RoleName == roleName);
 
@@ -75,9 +72,8 @@ namespace CodeSnippetTool.Services.Authentication
             }
         }
 
-        public static bool UserHasRole(string username, string roleName)
+        public static bool UserHasRole(AppDbContext context, string username, string roleName)
         {
-            using var context = new AppDbContext();
             var user = context.Users.Include(u => u.Roles)
                                     .FirstOrDefault(u => u.Username == username);
 

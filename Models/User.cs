@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodeSnippetTool.Models
+﻿namespace CodeSnippetTool.Models
 {
     public class User
     {
@@ -16,5 +10,6 @@ namespace CodeSnippetTool.Models
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         public ICollection<Role> Roles { get; set; } = new List<Role>();
         public ICollection<Snippet> Snippets { get; set; } = new List<Snippet>();
+        public ICollection<Snippet>? ReviewedSnippets { get; set; }
     }
 }
