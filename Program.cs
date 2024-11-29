@@ -17,7 +17,7 @@ namespace CodeSnippetTool
                 // Seed roles and users
             AuthHelper.SeedRoles(context);
             AuthHelper.SeedUsers(context);
-          
+            LanguageSeed.SeedLanguages(context);
 
             Application.Run(new LoginForm());
         }

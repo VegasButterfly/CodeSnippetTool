@@ -41,6 +41,14 @@ namespace CodeSnippetTool.Data
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
+            // Language
+            modelBuilder.Entity<Language>()
+                .Property(l => l.LanguageName)
+                .IsRequired();
+            modelBuilder.Entity<Language>()
+                .HasIndex(l => l.LanguageName)
+                .IsUnique();
+
             // Snippet Relationships
             modelBuilder.Entity<Snippet>()
                 .HasOne(s => s.CreatedBy)
