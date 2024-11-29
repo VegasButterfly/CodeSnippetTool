@@ -5,6 +5,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
 using System.Diagnostics.Eventing.Reader;
+using CodeSnippetTool.Services;
 
 namespace CodeSnippetTool
 {
@@ -58,7 +59,7 @@ namespace CodeSnippetTool
                             LanguageId = selectedLanguageId,
                             CreatedDate = DateTime.Now,
                             CreatedById = (int)UserSession.CurrentUserId
-                        };                       
+                        };
                     }
                     else
                     {
@@ -69,7 +70,7 @@ namespace CodeSnippetTool
                             snippet.SnippetDescription = SnippetDescription.Text;
                             snippet.CodeSnippetText = CodeSnippetText.Text;
                             snippet.AnalysisText = AnalysisText.Text;
-                            snippet.LanguageId = selectedLanguageId;                           
+                            snippet.LanguageId = selectedLanguageId;
                         }
                         else
                         {
@@ -83,7 +84,7 @@ namespace CodeSnippetTool
                     MessageBox.Show("Snippet saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     SnippetSaved?.Invoke(this, EventArgs.Empty);
-                    this.Close(); 
+                    this.Close();
                 }
             }
             catch (DbUpdateException dbEx)
@@ -149,5 +150,73 @@ namespace CodeSnippetTool
         {
             Application.Exit();
         }
+
+        private async void AnalyzeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validate required fields
+                if (string.IsNullOrEmpty(CodeSnippetText.Text))
+                {
+                    MessageBox.Show("Code snippet text cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string languageName = SnippetLanguageDropdown.Text; // Works if DisplayMember is set properly
+                if (string.IsNullOrEmpty(languageName))
+                {
+                    MessageBox.Show("Please select a language before analyzing.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Prepare the prompt for OpenAI analysis
+                string prompt = $"Analyze my code for its purpose. It is written in {languageName}: {CodeSnippetText.Text}";
+
+                // Call OpenAIHelper to get the analysis
+                string analysisResult = await OpenAIHelper.GetAIAnalysisAsync(languageName, CodeSnippetText.Text); // Use CodeSnippetText.Text
+
+                // Check if this is a new snippet or an existing snippet
+                if (loadedSnippet == null)
+                {
+                    // If it's a new snippet, create a new one
+                    loadedSnippet = new Snippet
+                    {
+                        SnippetName = "New Snippet",  // Set this to whatever is appropriate
+                        SnippetDescription = "Description for new snippet",  // Set as needed
+                        LanguageName = languageName,
+                        CodeSnippetText = CodeSnippetText.Text,
+                        AnalysisText = analysisResult,
+                        IsAnalyzed = true
+                    };
+
+                    // Optionally, you can save this new snippet to the database
+                    // SaveNewSnippetToDatabase(loadedSnippet); // Implement the saving logic here
+
+                    // Notify the user of the new snippet creation and analysis
+                    MessageBox.Show("New code snippet created and analyzed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // If it's an existing snippet, update the analysis
+                    loadedSnippet.AnalysisText = analysisResult;
+                    loadedSnippet.IsAnalyzed = true;
+
+                    // Optionally, save the updated snippet
+                    // SaveUpdatedSnippetToDatabase(loadedSnippet); // Implement the update logic here
+
+                    // Notify the user of the successful analysis update
+                    MessageBox.Show("Code analyzed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                // Show the analysis result in the AnalysisText box
+                AnalysisText.Text = analysisResult;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors during the API call
+                MessageBox.Show($"An error occurred while analyzing the code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
-}
+ }
+

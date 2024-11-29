@@ -39,6 +39,7 @@
         {
             tabControl2 = new TabControl();
             tabPage4 = new TabPage();
+            ReviewedByLabel = new Label();
             TranslateDeleteButton = new Button();
             TranslateSaveButton = new Button();
             TranslateReviewButton = new Button();
@@ -49,6 +50,8 @@
             AnalysisText = new RichTextBox();
             AnalyzeButton = new Button();
             panel1 = new Panel();
+            CreatedOnLabel = new Label();
+            CreatedByLabel = new Label();
             SnippetDescription = new RichTextBox();
             SnippetName = new TextBox();
             label3 = new Label();
@@ -60,9 +63,6 @@
             SnippetLanguageDropdown = new ComboBox();
             CloseButton = new Button();
             ExitButton = new Button();
-            CreatedByLabel = new Label();
-            CreatedOnLabel = new Label();
-            ReviewedByLabel = new Label();
             tabControl2.SuspendLayout();
             tabPage4.SuspendLayout();
             panel1.SuspendLayout();
@@ -94,6 +94,15 @@
             tabPage4.TabIndex = 0;
             tabPage4.Text = "Translation";
             tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // ReviewedByLabel
+            // 
+            ReviewedByLabel.AutoSize = true;
+            ReviewedByLabel.Location = new Point(98, 425);
+            ReviewedByLabel.Name = "ReviewedByLabel";
+            ReviewedByLabel.Size = new Size(76, 15);
+            ReviewedByLabel.TabIndex = 9;
+            ReviewedByLabel.Text = "Reviewed By:";
             // 
             // TranslateDeleteButton
             // 
@@ -174,6 +183,7 @@
             AnalyzeButton.TabIndex = 14;
             AnalyzeButton.Text = "AI Analyze";
             AnalyzeButton.UseVisualStyleBackColor = true;
+            AnalyzeButton.Click += AnalyzeButton_Click;
             // 
             // panel1
             // 
@@ -187,6 +197,24 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(357, 493);
             panel1.TabIndex = 10;
+            // 
+            // CreatedOnLabel
+            // 
+            CreatedOnLabel.AutoSize = true;
+            CreatedOnLabel.Location = new Point(18, 336);
+            CreatedOnLabel.Name = "CreatedOnLabel";
+            CreatedOnLabel.Size = new Size(70, 15);
+            CreatedOnLabel.TabIndex = 8;
+            CreatedOnLabel.Text = "Created On:";
+            // 
+            // CreatedByLabel
+            // 
+            CreatedByLabel.AutoSize = true;
+            CreatedByLabel.Location = new Point(17, 312);
+            CreatedByLabel.Name = "CreatedByLabel";
+            CreatedByLabel.Size = new Size(67, 15);
+            CreatedByLabel.TabIndex = 7;
+            CreatedByLabel.Text = "Created By:";
             // 
             // SnippetDescription
             // 
@@ -285,33 +313,6 @@
             ExitButton.Text = "EXIT";
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
-            // 
-            // CreatedByLabel
-            // 
-            CreatedByLabel.AutoSize = true;
-            CreatedByLabel.Location = new Point(17, 312);
-            CreatedByLabel.Name = "CreatedByLabel";
-            CreatedByLabel.Size = new Size(67, 15);
-            CreatedByLabel.TabIndex = 7;
-            CreatedByLabel.Text = "Created By:";
-            // 
-            // CreatedOnLabel
-            // 
-            CreatedOnLabel.AutoSize = true;
-            CreatedOnLabel.Location = new Point(18, 336);
-            CreatedOnLabel.Name = "CreatedOnLabel";
-            CreatedOnLabel.Size = new Size(70, 15);
-            CreatedOnLabel.TabIndex = 8;
-            CreatedOnLabel.Text = "Created On:";
-            // 
-            // ReviewedByLabel
-            // 
-            ReviewedByLabel.AutoSize = true;
-            ReviewedByLabel.Location = new Point(98, 425);
-            ReviewedByLabel.Name = "ReviewedByLabel";
-            ReviewedByLabel.Size = new Size(76, 15);
-            ReviewedByLabel.TabIndex = 9;
-            ReviewedByLabel.Text = "Reviewed By:";
             // 
             // SnippetForm
             // 

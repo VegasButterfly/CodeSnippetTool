@@ -1,9 +1,4 @@
 ﻿using CodeSnippetTool.Models;
-using System;
-using System.Collections.Generic;
-using CodeSnippetTool.Data;
-using CodeSnippetTool.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CodeSnippetTool.Data
 {
