@@ -8,8 +8,13 @@ namespace CodeSnippetTool
     {
         public LoginForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            // enter key activates login just because it's driving me crazy!!!!!
+            this.AcceptButton = LoginButton;
         }
+
+
+
 
         private void LoginButton_Click(object? sender, EventArgs e)
         {
