@@ -13,12 +13,16 @@ namespace CodeSnippetTool.Controllers
         {
             using var context = new AppDbContext();
             var snippets = context.Snippets
-                .Select(s => new
+                .Join(context.Users,
+                snippet => snippet.CreatedById,
+                user => user.Id,
+                (snippet, user) => new
                 {
-                    s.Id,
-                    s.SnippetName,
-                    s.SnippetDescription,
-                    s.CreatedDate // Include the CreatedDate property
+                    snippet.Id,
+                    snippet.SnippetName,
+                    snippet.SnippetDescription,
+                    snippet.CreatedDate,
+                    CreatedBy = user.Username
                 })
                 .ToList<dynamic>();
 

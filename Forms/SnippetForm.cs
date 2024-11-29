@@ -18,6 +18,8 @@ namespace CodeSnippetTool
             LoadLanguages();
         }
 
+        public event EventHandler SnippetSaved;
+
         private void SnippetSaveButton_Click(object sender, EventArgs e)
         {
             try
@@ -55,7 +57,7 @@ namespace CodeSnippetTool
                     _controller.SaveSnippet(snippet);
 
                     MessageBox.Show("Snippet saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    SnippetSaved?.Invoke(this, EventArgs.Empty);
                     this.Close(); // Close the form after saving
                 }
             }

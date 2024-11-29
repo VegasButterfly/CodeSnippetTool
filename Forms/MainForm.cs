@@ -1,4 +1,5 @@
 ﻿using CodeSnippetTool.Controllers;
+using CodeSnippetTool.Data;
 using Microsoft.Data.Sqlite;
 
 namespace CodeSnippetTool
@@ -50,7 +51,13 @@ namespace CodeSnippetTool
         private void button1_Click(object sender, EventArgs e)
         {
             SnippetForm snippetForm = new SnippetForm();
+            snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
             snippetForm.Show();
+        }
+
+        private void SnippetForm_SnippetSaved(object sender, EventArgs e)
+        {            
+            RefreshSnippetDataGridView();
         }
 
         private void dataGridViewUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -61,5 +68,16 @@ namespace CodeSnippetTool
         {
 
         }
+
+        private void RefreshSnippetDataGridView()
+        {
+            // Reload data for the DataGridView 
+            using (var context = new AppDbContext())
+            {
+                var snippets = context.Snippets.ToList(); 
+                dataGridViewSnippets.DataSource = snippets; 
+            }
+        }
+
     }
 }
