@@ -24,6 +24,5 @@
 
         public string? AnalysisText { get; set; }
         public string? CodeSnippetText { get; set; }
-
     }
 }
