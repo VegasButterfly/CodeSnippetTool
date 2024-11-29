@@ -63,7 +63,7 @@ namespace CodeSnippetTool
             try
             {
                 linkLabel_GitHub.LinkVisited = true;
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/VegasButterfly/CodeSnippetTool") { UseShellExecute = true });                
+                OpenUrl("https://github.com/VegasButterfly/CodeSnippetTool");
             }
             catch (Exception ex)
             {
@@ -77,13 +77,33 @@ namespace CodeSnippetTool
             try
             {
                 LinkLabel_LinkedIn.LinkVisited = true;
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://www.linkedin.com/in/vegasbutterfly2024") { UseShellExecute = true });
+                OpenUrl("https://www.linkedin.com/in/vegasbutterfly2024");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to open link that was clicked.");
             }
 
+        }
+
+        private void OpenUrl(string url)
+        {
+            try
+            {
+                // Use ProcessStartInfo to open the URL in the default browser
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true // Ensures the system default browser is used
+                };
+
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                // Show a message if the URL fails to open
+                MessageBox.Show($"Failed to open URL: {ex.Message}");
+            }
         }
     }
 }
