@@ -49,6 +49,7 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            RefreshButton = new Button();
             DeleteSnippet = new Button();
             LoadSnippet = new Button();
             button1 = new Button();
@@ -69,7 +70,8 @@
             textBox1 = new TextBox();
             label7 = new Label();
             ExitButton = new Button();
-            RefreshButton = new Button();
+            searchTextBox = new TextBox();
+            searchButton = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
@@ -105,6 +107,16 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Snippets";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // RefreshButton
+            // 
+            RefreshButton.Location = new Point(1042, 303);
+            RefreshButton.Name = "RefreshButton";
+            RefreshButton.Size = new Size(214, 64);
+            RefreshButton.TabIndex = 7;
+            RefreshButton.Text = "Refresh / List All";
+            RefreshButton.UseVisualStyleBackColor = true;
+            RefreshButton.Click += RefreshButton_Click;
             // 
             // DeleteSnippet
             // 
@@ -289,21 +301,31 @@
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
-            // RefreshButton
+            // searchTextBox
             // 
-            RefreshButton.Location = new Point(1042, 303);
-            RefreshButton.Name = "RefreshButton";
-            RefreshButton.Size = new Size(214, 64);
-            RefreshButton.TabIndex = 7;
-            RefreshButton.Text = "Refresh";
-            RefreshButton.UseVisualStyleBackColor = true;
-            RefreshButton.Click += RefreshButton_Click;
+            searchTextBox.Location = new Point(894, 32);
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.PlaceholderText = "Search Criteria";
+            searchTextBox.Size = new Size(194, 23);
+            searchTextBox.TabIndex = 2;
+            // 
+            // searchButton
+            // 
+            searchButton.Location = new Point(1094, 31);
+            searchButton.Name = "searchButton";
+            searchButton.Size = new Size(75, 23);
+            searchButton.TabIndex = 3;
+            searchButton.Text = "Search";
+            searchButton.UseVisualStyleBackColor = true;
+            searchButton.Click += SearchButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1346, 575);
+            Controls.Add(searchButton);
+            Controls.Add(searchTextBox);
             Controls.Add(ExitButton);
             Controls.Add(tabControl1);
             Name = "MainForm";
@@ -319,6 +341,7 @@
             tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -327,5 +350,7 @@
         private Button LoadSnippet;
         private Button DeleteSnippet;
         private Button RefreshButton;
+        private TextBox searchTextBox;
+        private Button searchButton;
     }
 }

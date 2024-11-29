@@ -22,7 +22,7 @@ namespace CodeSnippetTool
             snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
         }
 
-        private void LoadSnippets()
+        private void LoadSnippets(string searchQuery = null)
         {
 
             try
@@ -30,16 +30,25 @@ namespace CodeSnippetTool
                 using (var context = new AppDbContext())
                 {
                     // Perform a LINQ join between Snippets and Languages based on LanguageId
-                    var snippetsWithLanguage = (from snippet in context.Snippets
-                                                join language in context.Languages
-                                                on snippet.LanguageId equals language.Id
-                                                select new
-                                                {
-                                                    snippet.Id,
-                                                    snippet.SnippetName,
-                                                    LanguageName = language.LanguageName,
-                                                    snippet.SnippetDescription,
-                                                }).ToList();
+                    var query = from snippet in context.Snippets
+                                join language in context.Languages
+                                on snippet.LanguageId equals language.Id
+                                select new
+                                {
+                                    snippet.Id,
+                                    snippet.SnippetName,
+                                    LanguageName = language.LanguageName,
+                                    snippet.SnippetDescription,
+                                };
+
+                    if (!string.IsNullOrEmpty(searchQuery))
+                    {
+                        query = query.Where(s =>
+                        (s.SnippetName ?? "").ToLower().Contains(searchQuery.ToLower()) ||
+                        (s.SnippetDescription ?? "").ToLower().Contains(searchQuery.ToLower()));
+                    }
+
+                    var snippetsWithLanguage = query.ToList();
 
                     // Set the DataGridView's data source to the result of the join
                     dataGridViewSnippets.DataSource = snippetsWithLanguage;
@@ -153,8 +162,15 @@ namespace CodeSnippetTool
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
-        {            
-            RefreshSnippetDataGridView();            
+        {
+            RefreshSnippetDataGridView();
         }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            string searchQuery = searchTextBox.Text.Trim();
+            LoadSnippets(searchQuery);
+        }        
     }
+    
 }
