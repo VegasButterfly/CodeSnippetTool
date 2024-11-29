@@ -59,6 +59,7 @@
             SnippetSaveButton = new Button();
             SnippetLanguageDropdown = new ComboBox();
             CloseButton = new Button();
+            ExitButton = new Button();
             tabControl2.SuspendLayout();
             tabPage4.SuspendLayout();
             panel1.SuspendLayout();
@@ -269,11 +270,22 @@
             CloseButton.UseVisualStyleBackColor = true;
             CloseButton.Click += CloseButton_Click;
             // 
+            // ExitButton
+            // 
+            ExitButton.Location = new Point(1188, 20);
+            ExitButton.Name = "ExitButton";
+            ExitButton.Size = new Size(124, 35);
+            ExitButton.TabIndex = 20;
+            ExitButton.Text = "EXIT";
+            ExitButton.UseVisualStyleBackColor = true;
+            ExitButton.Click += ExitButton_Click;
+            // 
             // SnippetForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1349, 595);
+            Controls.Add(ExitButton);
             Controls.Add(CloseButton);
             Controls.Add(SnippetLanguageDropdown);
             Controls.Add(SnippetSaveButton);
@@ -295,6 +307,7 @@
         }
 
         private Button CloseButton;
+        private Button ExitButton;
 
         //private TabControl tabControl2;
         //private TabPage tabPage4;

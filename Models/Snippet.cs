@@ -20,6 +20,7 @@
         public bool IsDeleted { get; set; }
 
         public int? LanguageId { get; set; }  
+        public string? LanguageName { get; set; }
 
         public string? AnalysisText { get; set; }
         public string? CodeSnippetText { get; set; }

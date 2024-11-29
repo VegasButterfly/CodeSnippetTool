@@ -49,6 +49,8 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            DeleteSnippet = new Button();
+            LoadSnippet = new Button();
             button1 = new Button();
             dataGridViewSnippets = new DataGridView();
             label1 = new Label();
@@ -67,7 +69,6 @@
             textBox1 = new TextBox();
             label7 = new Label();
             ExitButton = new Button();
-            LoadSnippet = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
@@ -90,6 +91,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(DeleteSnippet);
             tabPage1.Controls.Add(LoadSnippet);
             tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(dataGridViewSnippets);
@@ -101,6 +103,26 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Snippets";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // DeleteSnippet
+            // 
+            DeleteSnippet.Location = new Point(1043, 209);
+            DeleteSnippet.Name = "DeleteSnippet";
+            DeleteSnippet.Size = new Size(213, 67);
+            DeleteSnippet.TabIndex = 6;
+            DeleteSnippet.Text = "Delete Selected Snippet";
+            DeleteSnippet.UseVisualStyleBackColor = true;
+            DeleteSnippet.Click += DeleteSnippet_Click;
+            // 
+            // LoadSnippet
+            // 
+            LoadSnippet.Location = new Point(1043, 108);
+            LoadSnippet.Name = "LoadSnippet";
+            LoadSnippet.Size = new Size(213, 67);
+            LoadSnippet.TabIndex = 5;
+            LoadSnippet.Text = "Load Selected Snippet";
+            LoadSnippet.UseVisualStyleBackColor = true;
+            LoadSnippet.Click += LoadSnippet_Click;
             // 
             // button1
             // 
@@ -265,16 +287,6 @@
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
-            // LoadSnippet
-            // 
-            LoadSnippet.Location = new Point(1043, 108);
-            LoadSnippet.Name = "LoadSnippet";
-            LoadSnippet.Size = new Size(213, 67);
-            LoadSnippet.TabIndex = 5;
-            LoadSnippet.Text = "Load Selected Snippet";
-            LoadSnippet.UseVisualStyleBackColor = true;
-            LoadSnippet.Click += LoadSnippet_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -301,5 +313,6 @@
 
         private Button ExitButton;
         private Button LoadSnippet;
+        private Button DeleteSnippet;
     }
 }
