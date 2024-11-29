@@ -69,6 +69,7 @@
             textBox1 = new TextBox();
             label7 = new Label();
             ExitButton = new Button();
+            RefreshButton = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
@@ -91,6 +92,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(RefreshButton);
             tabPage1.Controls.Add(DeleteSnippet);
             tabPage1.Controls.Add(LoadSnippet);
             tabPage1.Controls.Add(button1);
@@ -287,6 +289,16 @@
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
+            // RefreshButton
+            // 
+            RefreshButton.Location = new Point(1042, 303);
+            RefreshButton.Name = "RefreshButton";
+            RefreshButton.Size = new Size(214, 64);
+            RefreshButton.TabIndex = 7;
+            RefreshButton.Text = "Refresh";
+            RefreshButton.UseVisualStyleBackColor = true;
+            RefreshButton.Click += RefreshButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -314,5 +326,6 @@
         private Button ExitButton;
         private Button LoadSnippet;
         private Button DeleteSnippet;
+        private Button RefreshButton;
     }
 }

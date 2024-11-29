@@ -60,6 +60,9 @@
             SnippetLanguageDropdown = new ComboBox();
             CloseButton = new Button();
             ExitButton = new Button();
+            CreatedByLabel = new Label();
+            CreatedOnLabel = new Label();
+            ReviewedByLabel = new Label();
             tabControl2.SuspendLayout();
             tabPage4.SuspendLayout();
             panel1.SuspendLayout();
@@ -77,6 +80,7 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(ReviewedByLabel);
             tabPage4.Controls.Add(TranslateDeleteButton);
             tabPage4.Controls.Add(TranslateSaveButton);
             tabPage4.Controls.Add(TranslateReviewButton);
@@ -173,6 +177,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(CreatedOnLabel);
+            panel1.Controls.Add(CreatedByLabel);
             panel1.Controls.Add(SnippetDescription);
             panel1.Controls.Add(SnippetName);
             panel1.Controls.Add(label3);
@@ -280,6 +286,33 @@
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
+            // CreatedByLabel
+            // 
+            CreatedByLabel.AutoSize = true;
+            CreatedByLabel.Location = new Point(17, 312);
+            CreatedByLabel.Name = "CreatedByLabel";
+            CreatedByLabel.Size = new Size(67, 15);
+            CreatedByLabel.TabIndex = 7;
+            CreatedByLabel.Text = "Created By:";
+            // 
+            // CreatedOnLabel
+            // 
+            CreatedOnLabel.AutoSize = true;
+            CreatedOnLabel.Location = new Point(18, 336);
+            CreatedOnLabel.Name = "CreatedOnLabel";
+            CreatedOnLabel.Size = new Size(70, 15);
+            CreatedOnLabel.TabIndex = 8;
+            CreatedOnLabel.Text = "Created On:";
+            // 
+            // ReviewedByLabel
+            // 
+            ReviewedByLabel.AutoSize = true;
+            ReviewedByLabel.Location = new Point(98, 425);
+            ReviewedByLabel.Name = "ReviewedByLabel";
+            ReviewedByLabel.Size = new Size(76, 15);
+            ReviewedByLabel.TabIndex = 9;
+            ReviewedByLabel.Text = "Reviewed By:";
+            // 
             // SnippetForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -300,6 +333,7 @@
             Text = "Snippet";
             tabControl2.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -308,6 +342,9 @@
 
         private Button CloseButton;
         private Button ExitButton;
+        private Label ReviewedByLabel;
+        private Label CreatedOnLabel;
+        private Label CreatedByLabel;
 
         //private TabControl tabControl2;
         //private TabPage tabPage4;

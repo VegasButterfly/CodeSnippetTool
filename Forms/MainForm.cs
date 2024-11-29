@@ -1,6 +1,7 @@
 ﻿using CodeSnippetTool.Controllers;
 using CodeSnippetTool.Data;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeSnippetTool
 {
@@ -16,6 +17,9 @@ namespace CodeSnippetTool
             snippetController = new SnippetController();
             LoadUsers();
             LoadSnippets();
+
+            SnippetForm snippetForm = new SnippetForm();
+            snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
         }
 
         private void LoadSnippets()
@@ -32,7 +36,7 @@ namespace CodeSnippetTool
                                                 select new
                                                 {
                                                     snippet.Id,
-                                                    snippet.SnippetName,                                                    
+                                                    snippet.SnippetName,
                                                     LanguageName = language.LanguageName,
                                                     snippet.SnippetDescription,
                                                 }).ToList();
@@ -81,11 +85,19 @@ namespace CodeSnippetTool
 
         private void RefreshSnippetDataGridView()
         {
-            // Reload data for the DataGridView 
             using (var context = new AppDbContext())
             {
-                var snippets = context.Snippets.ToList();
-                dataGridViewSnippets.DataSource = snippets;
+                var snippetsWithLanguage = (from snippet in context.Snippets
+                                            join language in context.Languages
+                                            on snippet.LanguageId equals language.Id
+                                            select new
+                                            {
+                                                snippet.Id,
+                                                snippet.SnippetName,
+                                                LanguageName = language.LanguageName,
+                                                snippet.SnippetDescription,
+                                            }).ToList();
+                dataGridViewSnippets.DataSource = snippetsWithLanguage;
             }
         }
 
@@ -99,6 +111,7 @@ namespace CodeSnippetTool
 
                 SnippetForm snippetForm = new SnippetForm();
                 snippetForm.LoadSnippet(snippetId);
+                snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
                 snippetForm.Show();
             }
             else
@@ -108,7 +121,7 @@ namespace CodeSnippetTool
         }
 
         private void DeleteSnippet_Click(object sender, EventArgs e)
-        {            
+        {
             if (dataGridViewSnippets.SelectedRows.Count > 0)
             {
 
@@ -136,7 +149,12 @@ namespace CodeSnippetTool
             else
             {
                 MessageBox.Show("Please select a snippet to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }            
+            }
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {            
+            RefreshSnippetDataGridView();            
         }
     }
 }

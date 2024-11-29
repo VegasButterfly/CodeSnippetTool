@@ -4,6 +4,7 @@ using CodeSnippetTool.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
+using System.Diagnostics.Eventing.Reader;
 
 namespace CodeSnippetTool
 {
@@ -30,7 +31,7 @@ namespace CodeSnippetTool
                 if (selectedLanguageId == 0)
                 {
                     MessageBox.Show("Please select a language before saving.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;  // Stop further execution if no language is selected
+                    return;  // Stop 
                 }
 
                 using (var context = new AppDbContext())
@@ -42,23 +43,47 @@ namespace CodeSnippetTool
                         return;
                     }
 
+                    //this checks if it's an update or a new one
+                    Snippet snippet;
 
-                    var snippet = new Snippet
+                    if (loadedSnippetId == 0)
                     {
-                        Id = loadedSnippetId,
-                        SnippetName = SnippetName.Text,
-                        SnippetDescription = SnippetDescription.Text,
-                        CodeSnippetText = CodeSnippetText.Text,
-                        AnalysisText = AnalysisText.Text,
-                        LanguageId = (int)SnippetLanguageDropdown.SelectedValue,
-                        CreatedDate = DateTime.Now // Ensure CreatedDate is set
-                    };
-
-                    _controller.SaveSnippet(snippet);
+                        snippet = new Snippet
+                        {
+                            Id = loadedSnippetId,
+                            SnippetName = SnippetName.Text,
+                            SnippetDescription = SnippetDescription.Text,
+                            CodeSnippetText = CodeSnippetText.Text,
+                            AnalysisText = AnalysisText.Text,
+                            LanguageId = selectedLanguageId,
+                            CreatedDate = DateTime.Now,
+                            CreatedById = (int)UserSession.CurrentUserId
+                        };                       
+                    }
+                    else
+                    {
+                        snippet = context.Snippets.FirstOrDefault(s => s.Id == loadedSnippetId);
+                        if (snippet != null)
+                        {
+                            snippet.SnippetName = SnippetName.Text;
+                            snippet.SnippetDescription = SnippetDescription.Text;
+                            snippet.CodeSnippetText = CodeSnippetText.Text;
+                            snippet.AnalysisText = AnalysisText.Text;
+                            snippet.LanguageId = selectedLanguageId;                           
+                        }
+                        else
+                        {
+                            MessageBox.Show("Snippet not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                    context.Entry(snippet).State = loadedSnippetId == 0 ? EntityState.Added : EntityState.Modified;
+                    context.SaveChanges();
 
                     MessageBox.Show("Snippet saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     SnippetSaved?.Invoke(this, EventArgs.Empty);
-                    this.Close(); // Close the form after saving
+                    this.Close(); 
                 }
             }
             catch (DbUpdateException dbEx)
@@ -93,6 +118,7 @@ namespace CodeSnippetTool
             using (var context = new AppDbContext())
             {
                 var snippet = context.Snippets
+                    .Include(s => s.CreatedBy)
                     .FirstOrDefault(s => s.Id == snippetId);
 
                 if (snippet != null)
@@ -104,6 +130,8 @@ namespace CodeSnippetTool
                     CodeSnippetText.Text = snippet.CodeSnippetText;
                     AnalysisText.Text = snippet.AnalysisText;
                     SnippetLanguageDropdown.SelectedValue = snippet.LanguageId;
+                    CreatedByLabel.Text = $"Created By: {snippet.CreatedBy?.Username ?? "Not Saved"}";
+                    CreatedOnLabel.Text = $"Created On: {snippet.CreatedDate:MM/dd/yyyy}";
                 }
                 else
                 {
