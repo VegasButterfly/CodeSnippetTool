@@ -29,6 +29,9 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LanguageName")
+                        .IsUnique();
+
                     b.ToTable("Languages");
                 });
 
@@ -103,8 +106,6 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("ReviewedById");
 
                     b.ToTable("Snippets");
@@ -165,19 +166,12 @@ namespace CodeSnippetTool.Migrations
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.HasOne("CodeSnippetTool.Models.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("CodeSnippetTool.Models.User", "ReviewedBy")
                         .WithMany("ReviewedSnippets")
                         .HasForeignKey("ReviewedById")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Language");
 
                     b.Navigation("ReviewedBy");
                 });

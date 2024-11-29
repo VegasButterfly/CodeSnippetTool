@@ -5,9 +5,8 @@ using System.Linq;
 
 namespace CodeSnippetTool.Controllers
 {
-    public class UserController
+    public class UserController 
     {
-        
         public List<dynamic> GetAllUsers()
         {
             using var context = new AppDbContext();

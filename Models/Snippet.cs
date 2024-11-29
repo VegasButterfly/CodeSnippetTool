@@ -19,8 +19,7 @@
         public bool IsReviewed { get; set; }
         public bool IsDeleted { get; set; }
 
-        public int? LanguageId { get; set; }
-        public Language? Language { get; set; }
+        public int? LanguageId { get; set; }  
 
         public string? AnalysisText { get; set; }
         public string? CodeSnippetText { get; set; }

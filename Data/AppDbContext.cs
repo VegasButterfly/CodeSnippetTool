@@ -1,4 +1,5 @@
 ﻿using CodeSnippetTool.Models;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeSnippetTool.Data
@@ -10,9 +11,11 @@ namespace CodeSnippetTool.Data
         public DbSet<Language> Languages { get; set; } = null!;
         public DbSet<Snippet> Snippets { get; set; } = null!;
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        {            
             optionsBuilder.UseSqlite("Data Source=AppData.db");
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,21 +54,15 @@ namespace CodeSnippetTool.Data
 
             // Snippet Relationships
             modelBuilder.Entity<Snippet>()
-                .HasOne(s => s.CreatedBy)
+              .HasOne(s => s.CreatedBy)
                 .WithMany(u => u.Snippets)
                 .HasForeignKey(s => s.CreatedById)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Snippet>()
+           modelBuilder.Entity<Snippet>()
                 .HasOne(s => s.ReviewedBy)
                 .WithMany(u => u.ReviewedSnippets)
                 .HasForeignKey(s => s.ReviewedById)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            modelBuilder.Entity<Snippet>()
-                .HasOne(s => s.Language)
-                .WithMany()
-                .HasForeignKey(s => s.LanguageId)
                 .OnDelete(DeleteBehavior.SetNull);
 
             // Default Values and Filters

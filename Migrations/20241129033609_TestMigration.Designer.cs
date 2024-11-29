@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeSnippetTool.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241127175512_UpdateSnippetModel")]
-    partial class UpdateSnippetModel
+    [Migration("20241129033609_TestMigration")]
+    partial class TestMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LanguageName")
+                        .IsUnique();
+
                     b.ToTable("Languages");
                 });
 
@@ -47,6 +50,9 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleName")
+                        .IsUnique();
+
                     b.ToTable("Roles");
                 });
 
@@ -55,6 +61,12 @@ namespace CodeSnippetTool.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("AnalysisText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CodeSnippetText")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("CreatedById")
                         .HasColumnType("INTEGER");
@@ -81,7 +93,7 @@ namespace CodeSnippetTool.Migrations
                     b.Property<int?>("ReviewedById")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ReviewedDate")
+                    b.Property<DateTime?>("ReviewedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -130,22 +142,25 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RoleUser", b =>
+            modelBuilder.Entity("UserRoles", b =>
                 {
-                    b.Property<int>("RolesId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UsersId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("RolesId", "UsersId");
+                    b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("CodeSnippetTool.Models.Snippet", b =>
@@ -162,7 +177,7 @@ namespace CodeSnippetTool.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("CodeSnippetTool.Models.User", "ReviewedBy")
-                        .WithMany()
+                        .WithMany("ReviewedSnippets")
                         .HasForeignKey("ReviewedById")
                         .OnDelete(DeleteBehavior.SetNull);
 
@@ -173,23 +188,25 @@ namespace CodeSnippetTool.Migrations
                     b.Navigation("ReviewedBy");
                 });
 
-            modelBuilder.Entity("RoleUser", b =>
+            modelBuilder.Entity("UserRoles", b =>
                 {
                     b.HasOne("CodeSnippetTool.Models.Role", null)
                         .WithMany()
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CodeSnippetTool.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CodeSnippetTool.Models.User", b =>
                 {
+                    b.Navigation("ReviewedSnippets");
+
                     b.Navigation("Snippets");
                 });
 #pragma warning restore 612, 618

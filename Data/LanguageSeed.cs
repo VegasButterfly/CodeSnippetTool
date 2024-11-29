@@ -11,14 +11,24 @@ namespace CodeSnippetTool.Data
     {
         public static void SeedLanguages(AppDbContext context)
         {
-            if (!context.Languages.Any())
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                context.Languages.AddRange(
-                    new Language { LanguageName = "AutoIt" },
-                    new Language { LanguageName = "C#" },
-                    new Language { LanguageName = "Powershell" }
-                 );
-                context.SaveChanges();
+                if (!context.Languages.Any())
+                {
+                    context.Languages.AddRange(
+                        new Language { LanguageName = "AutoIt" },
+                        new Language { LanguageName = "C#" },
+                        new Language { LanguageName = "Powershell" }
+                    );
+                    context.SaveChanges();
+                }
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error seeding languages: {ex.Message}");
+                transaction.Rollback();
             }
         }
     }

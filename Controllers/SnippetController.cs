@@ -23,15 +23,16 @@ namespace CodeSnippetTool.Controllers
                 .ToList<dynamic>();
 
             return snippets;
-        }
+        }              
 
         public void SaveSnippet(Snippet snippet)
         {
             using var context = new AppDbContext();
-
+            
             if (snippet.Id == 0) // New snippet
             {
                 snippet.CreatedDate = DateTime.Now; // Set CreatedDate when creating new snippet
+                snippet.CreatedById = (int)UserSession.CurrentUserId;
             }
 
             if (snippet.Id == 0)

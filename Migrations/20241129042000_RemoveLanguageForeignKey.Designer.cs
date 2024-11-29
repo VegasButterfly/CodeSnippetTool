@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeSnippetTool.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241128155319_MadeReviewedDateNullible")]
-    partial class MadeReviewedDateNullible
+    [Migration("20241129042000_RemoveLanguageForeignKey")]
+    partial class RemoveLanguageForeignKey
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace CodeSnippetTool.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageName")
+                        .IsUnique();
 
                     b.ToTable("Languages");
                 });
@@ -58,6 +61,12 @@ namespace CodeSnippetTool.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("AnalysisText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CodeSnippetText")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("CreatedById")
                         .HasColumnType("INTEGER");
@@ -99,8 +108,6 @@ namespace CodeSnippetTool.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("ReviewedById");
 
@@ -162,19 +169,12 @@ namespace CodeSnippetTool.Migrations
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
-                    b.HasOne("CodeSnippetTool.Models.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("CodeSnippetTool.Models.User", "ReviewedBy")
                         .WithMany("ReviewedSnippets")
                         .HasForeignKey("ReviewedById")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Language");
 
                     b.Navigation("ReviewedBy");
                 });
