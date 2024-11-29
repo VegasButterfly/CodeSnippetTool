@@ -67,6 +67,7 @@
             textBox1 = new TextBox();
             label7 = new Label();
             ExitButton = new Button();
+            LoadSnippet = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
@@ -89,6 +90,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(LoadSnippet);
             tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(dataGridViewSnippets);
             tabPage1.Controls.Add(label1);
@@ -102,9 +104,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1170, 15);
+            button1.Location = new Point(1043, 14);
             button1.Name = "button1";
-            button1.Size = new Size(127, 23);
+            button1.Size = new Size(213, 62);
             button1.TabIndex = 4;
             button1.Text = "Add Snippet";
             button1.UseVisualStyleBackColor = true;
@@ -115,7 +117,7 @@
             dataGridViewSnippets.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewSnippets.Location = new Point(8, 50);
             dataGridViewSnippets.Name = "dataGridViewSnippets";
-            dataGridViewSnippets.Size = new Size(1289, 446);
+            dataGridViewSnippets.Size = new Size(971, 333);
             dataGridViewSnippets.TabIndex = 3;
             // 
             // label1
@@ -155,7 +157,6 @@
             dataGridViewUsers.Name = "dataGridViewUsers";
             dataGridViewUsers.Size = new Size(493, 193);
             dataGridViewUsers.TabIndex = 0;
-            dataGridViewUsers.CellContentClick += dataGridViewUsers_CellContentClick;
             // 
             // tabPage3
             // 
@@ -264,6 +265,16 @@
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
+            // LoadSnippet
+            // 
+            LoadSnippet.Location = new Point(1043, 108);
+            LoadSnippet.Name = "LoadSnippet";
+            LoadSnippet.Size = new Size(213, 67);
+            LoadSnippet.TabIndex = 5;
+            LoadSnippet.Text = "Load Selected Snippet";
+            LoadSnippet.UseVisualStyleBackColor = true;
+            LoadSnippet.Click += LoadSnippet_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -289,5 +300,6 @@
         #endregion
 
         private Button ExitButton;
+        private Button LoadSnippet;
     }
 }

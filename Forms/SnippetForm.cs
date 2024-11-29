@@ -67,7 +67,7 @@ namespace CodeSnippetTool
                        "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
-            {                
+            {
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -93,7 +93,6 @@ namespace CodeSnippetTool
             using (var context = new AppDbContext())
             {
                 var snippet = context.Snippets
-                    .Include(s => s.LanguageId) // Include related language
                     .FirstOrDefault(s => s.Id == snippetId);
 
                 if (snippet != null)
@@ -111,6 +110,11 @@ namespace CodeSnippetTool
                     MessageBox.Show("Snippet not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

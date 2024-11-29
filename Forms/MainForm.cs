@@ -25,7 +25,7 @@ namespace CodeSnippetTool
                 var snippets = snippetController.GetAllSnippets();
                 dataGridViewSnippets.DataSource = snippets;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Failed to load snippets: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -56,28 +56,37 @@ namespace CodeSnippetTool
         }
 
         private void SnippetForm_SnippetSaved(object sender, EventArgs e)
-        {            
+        {
             RefreshSnippetDataGridView();
         }
 
-        private void dataGridViewUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-        private void dataGridViewSnippets_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void RefreshSnippetDataGridView()
         {
             // Reload data for the DataGridView 
             using (var context = new AppDbContext())
             {
-                var snippets = context.Snippets.ToList(); 
-                dataGridViewSnippets.DataSource = snippets; 
+                var snippets = context.Snippets.ToList();
+                dataGridViewSnippets.DataSource = snippets;
             }
         }
 
+        private void LoadSnippet_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewSnippets.SelectedRows.Count > 0)
+            {
+               
+                int snippetId = Convert.ToInt32(dataGridViewSnippets.SelectedRows[0].Cells["Id"].Value);
+
+                
+                SnippetForm snippetForm = new SnippetForm();
+                snippetForm.LoadSnippet(snippetId);  
+                snippetForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please select a snippet to view.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
