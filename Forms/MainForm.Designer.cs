@@ -307,11 +307,11 @@
             // 
             // ExitButton
             // 
-            ExitButton.Location = new Point(1205, 25);
+            ExitButton.Location = new Point(1191, 25);
             ExitButton.Name = "ExitButton";
             ExitButton.Size = new Size(124, 35);
             ExitButton.TabIndex = 1;
-            ExitButton.Text = "EXIT";
+            ExitButton.Text = "Exit Program";
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 

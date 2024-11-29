@@ -33,8 +33,10 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            linkLabel1 = new LinkLabel();
+            LinkLabel_LinkedIn = new LinkLabel();
             LoginButton = new Button();
+            linkLabel_GitHub = new LinkLabel();
+            label4 = new Label();
             SuspendLayout();
             // 
             // txtUsername
@@ -80,15 +82,16 @@
             label3.TabIndex = 5;
             label3.Text = "Code Snippet Tool";
             // 
-            // linkLabel1
+            // LinkLabel_LinkedIn
             // 
-            linkLabel1.AutoSize = true;
-            linkLabel1.Location = new Point(286, 230);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(106, 15);
-            linkLabel1.TabIndex = 6;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Alexandria Roberts";
+            LinkLabel_LinkedIn.AutoSize = true;
+            LinkLabel_LinkedIn.Location = new Point(296, 246);
+            LinkLabel_LinkedIn.Name = "LinkLabel_LinkedIn";
+            LinkLabel_LinkedIn.Size = new Size(52, 15);
+            LinkLabel_LinkedIn.TabIndex = 6;
+            LinkLabel_LinkedIn.TabStop = true;
+            LinkLabel_LinkedIn.Text = "LinkedIn";
+            LinkLabel_LinkedIn.LinkClicked += linkLabel_LinkedIn_LinkClicked;
             // 
             // LoginButton
             // 
@@ -100,13 +103,35 @@
             LoginButton.UseVisualStyleBackColor = true;
             LoginButton.Click += LoginButton_Click;
             // 
+            // linkLabel_GitHub
+            // 
+            linkLabel_GitHub.AutoSize = true;
+            linkLabel_GitHub.Location = new Point(357, 246);
+            linkLabel_GitHub.Name = "linkLabel_GitHub";
+            linkLabel_GitHub.Size = new Size(45, 15);
+            linkLabel_GitHub.TabIndex = 8;
+            linkLabel_GitHub.TabStop = true;
+            linkLabel_GitHub.Text = "GitHub";
+            linkLabel_GitHub.LinkClicked += linkLabel_GitHub_LinkClicked;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(296, 222);
+            label4.Name = "label4";
+            label4.Size = new Size(106, 15);
+            label4.TabIndex = 9;
+            label4.Text = "Alexandria Roberts";
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(425, 270);
+            Controls.Add(label4);
+            Controls.Add(linkLabel_GitHub);
             Controls.Add(LoginButton);
-            Controls.Add(linkLabel1);
+            Controls.Add(LinkLabel_LinkedIn);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -124,7 +149,9 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private LinkLabel linkLabel1;
+        private LinkLabel LinkLabel_LinkedIn;
         private Button LoginButton;
+        private LinkLabel linkLabel_GitHub;
+        private Label label4;
     }
 }

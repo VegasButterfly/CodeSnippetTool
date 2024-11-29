@@ -304,7 +304,7 @@
             SnippetSaveButton.Name = "SnippetSaveButton";
             SnippetSaveButton.Size = new Size(142, 33);
             SnippetSaveButton.TabIndex = 17;
-            SnippetSaveButton.Text = "SAVE";
+            SnippetSaveButton.Text = "Save";
             SnippetSaveButton.UseVisualStyleBackColor = true;
             SnippetSaveButton.Click += SnippetSaveButton_Click;
             // 
@@ -323,7 +323,7 @@
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(138, 33);
             CloseButton.TabIndex = 19;
-            CloseButton.Text = "CLOSE";
+            CloseButton.Text = "Close";
             CloseButton.UseVisualStyleBackColor = true;
             CloseButton.Click += CloseButton_Click;
             // 
@@ -333,7 +333,7 @@
             ExitButton.Name = "ExitButton";
             ExitButton.Size = new Size(124, 35);
             ExitButton.TabIndex = 20;
-            ExitButton.Text = "EXIT";
+            ExitButton.Text = "Exit Program";
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 

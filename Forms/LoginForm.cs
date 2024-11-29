@@ -1,6 +1,7 @@
 using CodeSnippetTool.Data;
 using CodeSnippetTool.Models;
 using CodeSnippetTool.Services.Authentication;
+using System.Windows.Forms;
 
 namespace CodeSnippetTool
 {
@@ -43,7 +44,7 @@ namespace CodeSnippetTool
                 UserSession.CurrentUsername = user.Username;
                 UserSession.CurrentUser = user;
 
-               
+
                 // Proceed to the main application
                 // Hide or close this form, then open the main form.
                 this.Hide();
@@ -56,6 +57,33 @@ namespace CodeSnippetTool
             }
 
         }
-           
+
+        private void linkLabel_GitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                linkLabel_GitHub.LinkVisited = true;
+                System.Diagnostics.Process.Start("https://github.com/VegasButterfly/CodeSnippetTool");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open link that was clicked.");
+            }
+
+        }
+
+        private void linkLabel_LinkedIn_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                LinkLabel_LinkedIn.LinkVisited = true;
+                System.Diagnostics.Process.Start("www.linkedin.com/in/vegasbutterfly2024");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open link that was clicked.");
+            }
+
+        }
     }
 }
