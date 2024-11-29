@@ -155,65 +155,38 @@ namespace CodeSnippetTool
         {
             try
             {
-                // Validate required fields
+                // Validate that the CodeSnippetText and Language dropdown have values
                 if (string.IsNullOrEmpty(CodeSnippetText.Text))
                 {
                     MessageBox.Show("Code snippet text cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                string languageName = SnippetLanguageDropdown.Text; // Works if DisplayMember is set properly
+                string languageName = SnippetLanguageDropdown.Text; // Assuming the dropdown provides the language name
                 if (string.IsNullOrEmpty(languageName))
                 {
                     MessageBox.Show("Please select a language before analyzing.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Prepare the prompt for OpenAI analysis
-                string prompt = $"Analyze my code for its purpose. It is written in {languageName}: {CodeSnippetText.Text}";
-
-                // Call OpenAIHelper to get the analysis
-                string analysisResult = await OpenAIHelper.GetAIAnalysisAsync(languageName, CodeSnippetText.Text); // Use CodeSnippetText.Text
-
-                // Check if this is a new snippet or an existing snippet
-                if (loadedSnippet == null)
+                try
                 {
-                    // If it's a new snippet, create a new one
-                    loadedSnippet = new Snippet
-                    {
-                        SnippetName = "New Snippet",  // Set this to whatever is appropriate
-                        SnippetDescription = "Description for new snippet",  // Set as needed
-                        LanguageName = languageName,
-                        CodeSnippetText = CodeSnippetText.Text,
-                        AnalysisText = analysisResult,
-                        IsAnalyzed = true
-                    };
+                    // Call the OpenAI API to get the analysis
+                    string analysisResult = await OpenAIHelper.GetAIAnalysisAsync(languageName, CodeSnippetText.Text);
 
-                    // Optionally, you can save this new snippet to the database
-                    // SaveNewSnippetToDatabase(loadedSnippet); // Implement the saving logic here
+                    // Populate the AnalysisText rich text box with the result
+                    AnalysisText.Text = analysisResult;
 
-                    // Notify the user of the new snippet creation and analysis
-                    MessageBox.Show("New code snippet created and analyzed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Analysis completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    // If it's an existing snippet, update the analysis
-                    loadedSnippet.AnalysisText = analysisResult;
-                    loadedSnippet.IsAnalyzed = true;
-
-                    // Optionally, save the updated snippet
-                    // SaveUpdatedSnippetToDatabase(loadedSnippet); // Implement the update logic here
-
-                    // Notify the user of the successful analysis update
-                    MessageBox.Show("Code analyzed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                // Show the analysis result in the AnalysisText box
-                AnalysisText.Text = analysisResult;
+                    // Log or display the detailed error message
+                    MessageBox.Show($"Error: {ex.Message}\n\nDetails: {ex.InnerException?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
             }
             catch (Exception ex)
             {
-                // Handle any errors during the API call
                 MessageBox.Show($"An error occurred while analyzing the code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -1,36 +1,78 @@
-﻿using OpenAI.Chat;
-using System;
+﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CodeSnippetTool.Services
 {
     public class OpenAIHelper
     {
-        private static readonly string apiKey = "your-api-key-here"; // Your OpenAI API key
+        private static readonly string apiKey = "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"; // Replace with your API key
+        private static readonly string apiEndpoint = "https://api.openai.com/v1/chat/completions"; // OpenAI API endpoint
 
         // Method to get AI analysis of the code
         public static async Task<string> GetAIAnalysisAsync(string languageName, string codeSnippetText)
         {
-            // Create the prompt for the AI based on language and code
+            using var httpClient = new HttpClient();
+
+            // Prepare the prompt
             string prompt = $"Analyze my code for its purpose. It is written in {languageName}: {codeSnippetText}";
+
+            // Create the request payload
+            var payload = new
+            {
+                model = "gpt-3.5-turbo", // Model name
+                messages = new[]
+                {
+                    new { role = "user", content = prompt }
+                },                
+                temperature = 1,
+                max_tokens = 2048,
+                top_p = 1,
+                frequency_penalty = 0,
+                presence_penalty = 0
+            };
+
+            // Serialize the payload to JSON
+            string jsonPayload = JsonSerializer.Serialize(payload);
+
+            // Set up the HTTP request
+            using var request = new HttpRequestMessage(HttpMethod.Post, apiEndpoint)
+            {
+                Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json")
+            };
+
+            // Add the API key to the authorization header
+            request.Headers.Add("Authorization", $"Bearer {apiKey}");
 
             try
             {
-                // Initialize the ChatClient with the model and API key
-                var client = new ChatClient(model: "gpt-4", apiKey: apiKey);
+                // Send the request and get the response
+                HttpResponseMessage response = await httpClient.SendAsync(request);
 
-                // Send the prompt to OpenAI and get the response
-                var userMessage = new UserChatMessage(prompt);
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle unsuccessful responses
+                    string errorDetails = await response.Content.ReadAsStringAsync();
+                    throw new InvalidOperationException($"API request failed with status {response.StatusCode}: {errorDetails}");
+                }
 
-                // Get the response asynchronously
-                ChatCompletion completion = await client.CompleteChatAsync(new[] { userMessage });
+                // Parse and return the response content
+                string responseContent = await response.Content.ReadAsStringAsync();
+                var jsonResponse = JsonDocument.Parse(responseContent);
 
-                // Return the AI analysis text (the assistant's response)
-                return completion.Content[0].Text.Trim();
+                // Extract the text from the response
+                string analysisText = jsonResponse.RootElement
+                    .GetProperty("choices")[0]
+                    .GetProperty("message")
+                    .GetProperty("content")
+                    .GetString();
+
+                return analysisText;
             }
             catch (Exception ex)
             {
-                // Log or handle any errors that occur during the API call
                 throw new InvalidOperationException("Failed to get AI analysis.", ex);
             }
         }
