@@ -63,6 +63,7 @@
             SnippetLanguageDropdown = new ComboBox();
             CloseButton = new Button();
             ExitButton = new Button();
+            label5 = new Label();
             tabControl2.SuspendLayout();
             tabPage4.SuspendLayout();
             panel1.SuspendLayout();
@@ -192,6 +193,7 @@
             panel1.Controls.Add(SnippetDescription);
             panel1.Controls.Add(SnippetName);
             panel1.Controls.Add(label3);
+            panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
             panel1.Location = new Point(29, 51);
             panel1.Name = "panel1";
@@ -269,7 +271,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(29, 20);
+            label4.Location = new Point(18, 8);
             label4.Name = "label4";
             label4.Size = new Size(47, 15);
             label4.TabIndex = 16;
@@ -314,16 +316,26 @@
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Malgun Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(29, 3);
+            label5.Name = "label5";
+            label5.Size = new Size(304, 45);
+            label5.TabIndex = 21;
+            label5.Text = "Code Snippet Tool";
+            // 
             // SnippetForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1349, 595);
+            Controls.Add(label5);
             Controls.Add(ExitButton);
             Controls.Add(CloseButton);
             Controls.Add(SnippetLanguageDropdown);
             Controls.Add(SnippetSaveButton);
-            Controls.Add(label4);
             Controls.Add(tabControl2);
             Controls.Add(AnalysisText);
             Controls.Add(AnalyzeButton);
@@ -346,6 +358,7 @@
         private Label ReviewedByLabel;
         private Label CreatedOnLabel;
         private Label CreatedByLabel;
+        private Label label5;
 
         //private TabControl tabControl2;
         //private TabPage tabPage4;

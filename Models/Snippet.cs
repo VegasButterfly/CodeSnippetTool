@@ -24,5 +24,12 @@
 
         public string? AnalysisText { get; set; }
         public string? CodeSnippetText { get; set; }
+
+        public virtual ICollection<Translation> Translations { get; set; }
+
+        public Snippet()
+        {
+            Translations = new HashSet<Translation>();
+        }
     }
 }

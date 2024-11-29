@@ -10,7 +10,7 @@ namespace CodeSnippetTool.Data
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;
         public DbSet<Snippet> Snippets { get; set; } = null!;
-
+        public DbSet<Translation> Translations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {            
@@ -64,6 +64,11 @@ namespace CodeSnippetTool.Data
                 .WithMany(u => u.ReviewedSnippets)
                 .HasForeignKey(s => s.ReviewedById)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Snippet>()
+                .HasMany(s => s.Translations)
+                .WithOne(t => t.Snippet)
+                .HasForeignKey(t => t.SnippetId);
 
             // Default Values and Filters
             modelBuilder.Entity<Snippet>()

@@ -72,6 +72,7 @@
             ExitButton = new Button();
             searchTextBox = new TextBox();
             searchButton = new Button();
+            label8 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
@@ -319,11 +320,22 @@
             searchButton.UseVisualStyleBackColor = true;
             searchButton.Click += SearchButton_Click;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Malgun Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(16, 9);
+            label8.Name = "label8";
+            label8.Size = new Size(304, 45);
+            label8.TabIndex = 6;
+            label8.Text = "Code Snippet Tool";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1346, 575);
+            Controls.Add(label8);
             Controls.Add(searchButton);
             Controls.Add(searchTextBox);
             Controls.Add(ExitButton);
@@ -352,5 +364,6 @@
         private Button RefreshButton;
         private TextBox searchTextBox;
         private Button searchButton;
+        private Label label8;
     }
 }
