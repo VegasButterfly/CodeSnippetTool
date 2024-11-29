@@ -18,6 +18,7 @@ namespace CodeSnippetTool
             AuthHelper.SeedRoles(context);
             AuthHelper.SeedUsers(context);
             LanguageSeed.SeedLanguages(context);
+            SnippetSeed.SeedSampleSnippets(context);
 
             Application.Run(new LoginForm());
         }

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSnippetTool", "CodeSnippetTool.csproj", "{0332A7F8-856A-4E88-976C-2770043891AE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CodeSnippetInstaller", "..\CodeSnippetInstaller\CodeSnippetInstaller.vdproj", "{C35BA1DF-43AE-499B-BD57-B7B7641031DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{0332A7F8-856A-4E88-976C-2770043891AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0332A7F8-856A-4E88-976C-2770043891AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0332A7F8-856A-4E88-976C-2770043891AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C35BA1DF-43AE-499B-BD57-B7B7641031DD}.Debug|Any CPU.ActiveCfg = Debug
+		{C35BA1DF-43AE-499B-BD57-B7B7641031DD}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

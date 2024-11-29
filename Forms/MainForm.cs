@@ -81,8 +81,10 @@ namespace CodeSnippetTool
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Hide();
             SnippetForm snippetForm = new SnippetForm();
             snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
+            snippetForm.FormClosed += (s, args) => this.Show();
             snippetForm.Show();
         }
 
@@ -114,13 +116,14 @@ namespace CodeSnippetTool
         {
             if (dataGridViewSnippets.SelectedRows.Count > 0)
             {
-
+                this.Hide();
                 int snippetId = Convert.ToInt32(dataGridViewSnippets.SelectedRows[0].Cells["Id"].Value);
 
 
                 SnippetForm snippetForm = new SnippetForm();
-                snippetForm.LoadSnippet(snippetId);
+                snippetForm.LoadSnippet(snippetId);                
                 snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
+                snippetForm.FormClosed += (s, args) => this.Show();
                 snippetForm.Show();
             }
             else

@@ -63,7 +63,7 @@ namespace CodeSnippetTool
             try
             {
                 linkLabel_GitHub.LinkVisited = true;
-                System.Diagnostics.Process.Start("https://github.com/VegasButterfly/CodeSnippetTool");
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/VegasButterfly/CodeSnippetTool") { UseShellExecute = true });                
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace CodeSnippetTool
             try
             {
                 LinkLabel_LinkedIn.LinkVisited = true;
-                System.Diagnostics.Process.Start("www.linkedin.com/in/vegasbutterfly2024");
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://www.linkedin.com/in/vegasbutterfly2024") { UseShellExecute = true });
             }
             catch (Exception ex)
             {
