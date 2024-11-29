@@ -59,6 +59,7 @@
             label3 = new Label();
             dataGridViewUsers = new DataGridView();
             tabPage3 = new TabPage();
+            label9 = new Label();
             textBox3 = new TextBox();
             label6 = new Label();
             textBox2 = new TextBox();
@@ -197,6 +198,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label9);
             tabPage3.Controls.Add(textBox3);
             tabPage3.Controls.Add(label6);
             tabPage3.Controls.Add(textBox2);
@@ -212,6 +214,17 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Settings";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 54F);
+            label9.ForeColor = Color.Firebrick;
+            label9.Location = new Point(335, 18);
+            label9.Name = "label9";
+            label9.Size = new Size(668, 96);
+            label9.TabIndex = 7;
+            label9.Text = "Future Functionality";
             // 
             // textBox3
             // 
@@ -365,5 +378,6 @@
         private TextBox searchTextBox;
         private Button searchButton;
         private Label label8;
+        private Label label9;
     }
 }

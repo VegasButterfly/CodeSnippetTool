@@ -39,6 +39,7 @@
         {
             tabControl2 = new TabControl();
             tabPage4 = new TabPage();
+            label9 = new Label();
             ReviewedByLabel = new Label();
             TranslateDeleteButton = new Button();
             TranslateSaveButton = new Button();
@@ -55,10 +56,10 @@
             SnippetDescription = new RichTextBox();
             SnippetName = new TextBox();
             label3 = new Label();
+            label4 = new Label();
             label2 = new Label();
             label1 = new Label();
             CodeSnippetText = new RichTextBox();
-            label4 = new Label();
             SnippetSaveButton = new Button();
             SnippetLanguageDropdown = new ComboBox();
             CloseButton = new Button();
@@ -73,6 +74,7 @@
             // 
             tabControl2.Controls.Add(tabPage4);
             tabControl2.Controls.Add(tabPage5);
+            tabControl2.Enabled = false;
             tabControl2.Location = new Point(792, 59);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -81,6 +83,7 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(label9);
             tabPage4.Controls.Add(ReviewedByLabel);
             tabPage4.Controls.Add(TranslateDeleteButton);
             tabPage4.Controls.Add(TranslateSaveButton);
@@ -96,6 +99,17 @@
             tabPage4.Text = "Translation";
             tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 24F);
+            label9.ForeColor = Color.Firebrick;
+            label9.Location = new Point(98, 189);
+            label9.Name = "label9";
+            label9.Size = new Size(301, 45);
+            label9.TabIndex = 22;
+            label9.Text = "Future Functionality";
+            // 
             // ReviewedByLabel
             // 
             ReviewedByLabel.AutoSize = true;
@@ -107,6 +121,7 @@
             // 
             // TranslateDeleteButton
             // 
+            TranslateDeleteButton.Enabled = false;
             TranslateDeleteButton.Location = new Point(476, 419);
             TranslateDeleteButton.Name = "TranslateDeleteButton";
             TranslateDeleteButton.Size = new Size(26, 23);
@@ -116,24 +131,29 @@
             // 
             // TranslateSaveButton
             // 
+            TranslateSaveButton.Enabled = false;
             TranslateSaveButton.Location = new Point(396, 420);
             TranslateSaveButton.Name = "TranslateSaveButton";
             TranslateSaveButton.Size = new Size(75, 23);
             TranslateSaveButton.TabIndex = 4;
             TranslateSaveButton.Text = "Save";
             TranslateSaveButton.UseVisualStyleBackColor = true;
+            TranslateSaveButton.Click += TranslateSaveButton_Click;
             // 
             // TranslateReviewButton
             // 
-            TranslateReviewButton.Location = new Point(17, 421);
+            TranslateReviewButton.Enabled = false;
+            TranslateReviewButton.Location = new Point(12, 421);
             TranslateReviewButton.Name = "TranslateReviewButton";
             TranslateReviewButton.Size = new Size(75, 23);
             TranslateReviewButton.TabIndex = 3;
             TranslateReviewButton.Text = "Review";
             TranslateReviewButton.UseVisualStyleBackColor = true;
+            TranslateReviewButton.Click += TranslateReviewButton_Click;
             // 
             // TranslateButton
             // 
+            TranslateButton.Enabled = false;
             TranslateButton.Location = new Point(427, 11);
             TranslateButton.Name = "TranslateButton";
             TranslateButton.Size = new Size(75, 23);
@@ -143,6 +163,7 @@
             // 
             // TranslationText
             // 
+            TranslationText.Enabled = false;
             TranslationText.Location = new Point(12, 43);
             TranslationText.Name = "TranslationText";
             TranslationText.Size = new Size(490, 371);
@@ -242,6 +263,15 @@
             label3.TabIndex = 4;
             label3.Text = "Description";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(18, 8);
+            label4.Name = "label4";
+            label4.Size = new Size(47, 15);
+            label4.TabIndex = 16;
+            label4.Text = "Snippet";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -267,15 +297,6 @@
             CodeSnippetText.Size = new Size(354, 298);
             CodeSnippetText.TabIndex = 11;
             CodeSnippetText.Text = "";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(18, 8);
-            label4.Name = "label4";
-            label4.Size = new Size(47, 15);
-            label4.TabIndex = 16;
-            label4.Text = "Snippet";
             // 
             // SnippetSaveButton
             // 
@@ -359,6 +380,7 @@
         private Label CreatedOnLabel;
         private Label CreatedByLabel;
         private Label label5;
+        private Label label9;
 
         //private TabControl tabControl2;
         //private TabPage tabPage4;

@@ -111,6 +111,11 @@ namespace CodeSnippetTool
                 SnippetLanguageDropdown.DataSource = languages;
                 SnippetLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
                 SnippetLanguageDropdown.ValueMember = "Id";             // The value to use for data binding
+
+                TranslationLanguageDropdown.DataSource = languages;
+                TranslationLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
+                TranslationLanguageDropdown.ValueMember = "Id";             // The value to use for data binding             
+
             }
         }
 
@@ -183,13 +188,60 @@ namespace CodeSnippetTool
                 {
                     // Log or display the detailed error message
                     MessageBox.Show($"Error: {ex.Message}\n\nDetails: {ex.InnerException?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }                
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while analyzing the code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private async void TranslateReviewButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Assuming translationId is available from the UI context or selected translation
+                int translationId = 1;  // Example translation Id
+                int currentUserId = (int)UserSession.CurrentUserId;  // Get the current user ID from session
+
+                // Call the method to mark the translation as reviewed
+                await new TranslationController(new AppDbContext())
+                    .ReviewTranslationAsync(translationId, currentUserId);
+
+                MessageBox.Show("Translation reviewed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error reviewing translation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void TranslateSaveButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                var translation = new Translation
+                {
+                    Language = TranslationLanguageDropdown.Text,
+                    TranslationText = TranslationText.Text,
+                    Reviewed = false,  // Default value if not reviewed
+                    ReviewerId = null,  // No reviewer yet
+                    ReviewDate = null  // No review date yet
+                };
+
+                bool isNew = translation.Id == 0; // Assuming translation has an Id property
+                await new TranslationController(new AppDbContext())
+                    .SaveTranslationAsync(translation, isNew);
+
+                MessageBox.Show("Translation saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving translation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+       
     }
- }
+}
 

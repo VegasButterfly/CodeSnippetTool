@@ -43,7 +43,7 @@ namespace CodeSnippetTool
                 UserSession.CurrentUsername = user.Username;
                 UserSession.CurrentUser = user;
 
-                MessageBox.Show($"Welcome, {username}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
                 // Proceed to the main application
                 // Hide or close this form, then open the main form.
                 this.Hide();

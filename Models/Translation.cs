@@ -13,10 +13,10 @@ namespace CodeSnippetTool.Models
         public string Language { get; set; }
         public string TranslationText { get; set; } 
         public bool Reviewed { get; set; } 
-        public int ReviewerId { get; set; }
-        public DateTime ReviewDate { get; set; } 
-              
-        public User Reviewer { get; set; } 
+        public int? ReviewerId { get; set; }
+        public DateTime? ReviewDate { get; set; }
+        
+        public User? Reviewer { get; set; } 
         public virtual Snippet Snippet { get; set; }
     }
 }
