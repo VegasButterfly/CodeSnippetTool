@@ -21,6 +21,7 @@
 
         public int? LanguageId { get; set; }  
         public string? LanguageName { get; set; }
+        public Language Language { get; set; }
 
         public string? AnalysisText { get; set; }
         public string? CodeSnippetText { get; set; }

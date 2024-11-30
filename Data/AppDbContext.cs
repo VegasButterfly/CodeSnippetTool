@@ -70,6 +70,12 @@ namespace CodeSnippetTool.Data
                 .WithOne(t => t.Snippet)
                 .HasForeignKey(t => t.SnippetId);
 
+            modelBuilder.Entity<Snippet>()
+                .HasOne(s => s.Language)
+                .WithMany(l => l.Snippets)    
+                .HasForeignKey(s => s.LanguageId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             // Default Values and Filters
             modelBuilder.Entity<Snippet>()
                 .Property(s => s.IsDeleted)

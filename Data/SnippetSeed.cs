@@ -9,35 +9,45 @@ namespace CodeSnippetTool.Data
 {
     public class SnippetSeed
     {
-        // Method to seed sample snippets into the database
-        public static void SeedSampleSnippets(AppDbContext context) // Use your actual DbContext name
+        public static void SeedSampleSnippets(AppDbContext context)
         {
-            // Check if the table already has data
-            if (!context.Snippets.Any())
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                var sampleSnippets = new List<Snippet>
+                if (!context.Snippets.Any())
                 {
-                    new Snippet
-                    {
-                        SnippetName = "Hello World Example",
-                        SnippetDescription = "A simple Hello World example in C#",
-                        CodeSnippetText = "Console.WriteLine(\"Hello, World!\");",
-                        AnalysisText = "This is a basic Hello World program in C#.",
-                        LanguageId = 2
-                    },
-                    new Snippet
-                    {
-                        SnippetName = "Basic Loop",
-                        SnippetDescription = "A simple for loop in C#",
-                        CodeSnippetText = "for(int i = 0; i < 10; i++) { Console.WriteLine(i); }",
-                        AnalysisText = "This loop iterates 10 times and prints the value of i.",
-                        LanguageId = 2
-                    }
-                };
+                    context.Snippets.AddRange(
+                         new Snippet
+                         {
+                             SnippetName = "Hello World Example",
+                             SnippetDescription = "A simple Hello World example in C#",
+                             CreatedDate = DateTime.Now,
+                             CreatedById = 1,
+                             CodeSnippetText = "Console.WriteLine(\"Hello, World!\");",
+                             AnalysisText = "This is a basic Hello World program in C#.",
+                             LanguageId = 2
+                         },
+                         new Snippet
+                         {
+                             SnippetName = "Basic Loop",
+                             SnippetDescription = "A simple for loop in C#",
+                             CreatedDate = DateTime.Now,
+                             CreatedById = 1,
+                             CodeSnippetText = "for(int i = 0; i < 10; i++) { Console.WriteLine(i); }",
+                             AnalysisText = "This loop iterates 10 times and prints the value of i.",
+                             LanguageId = 2
+                         });
+                    context.SaveChanges();
+                }
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                {
+                    Console.WriteLine($"Error seeding sample snippets: {ex.Message}");
+                    transaction.Rollback();
+                }
 
-                // Add the sample snippets to the database context
-                context.Snippets.AddRange(sampleSnippets);
-                context.SaveChanges(); // Save changes to the database
             }
         }
     }

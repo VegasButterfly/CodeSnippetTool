@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CodeSnippetTool.Migrations
 {
     /// <inheritdoc />
-    public partial class TestMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,6 +70,7 @@ namespace CodeSnippetTool.Migrations
                     IsReviewed = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     LanguageId = table.Column<int>(type: "INTEGER", nullable: true),
+                    LanguageName = table.Column<string>(type: "TEXT", nullable: true),
                     AnalysisText = table.Column<string>(type: "TEXT", nullable: true),
                     CodeSnippetText = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -120,6 +121,35 @@ namespace CodeSnippetTool.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Translations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SnippetId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Language = table.Column<string>(type: "TEXT", nullable: false),
+                    TranslationText = table.Column<string>(type: "TEXT", nullable: false),
+                    Reviewed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ReviewerId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ReviewDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Translations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Translations_Snippets_SnippetId",
+                        column: x => x.SnippetId,
+                        principalTable: "Snippets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Translations_Users_ReviewerId",
+                        column: x => x.ReviewerId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Languages_LanguageName",
                 table: "Languages",
@@ -148,6 +178,16 @@ namespace CodeSnippetTool.Migrations
                 column: "ReviewedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Translations_ReviewerId",
+                table: "Translations",
+                column: "ReviewerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Translations_SnippetId",
+                table: "Translations",
+                column: "SnippetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
@@ -163,16 +203,19 @@ namespace CodeSnippetTool.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Snippets");
+                name: "Translations");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
-                name: "Languages");
+                name: "Snippets");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "Users");

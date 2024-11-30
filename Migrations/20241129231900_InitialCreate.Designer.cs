@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeSnippetTool.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241129191541_DisableForeignKeys")]
-    partial class DisableForeignKeys
+    [Migration("20241129231900_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,8 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasIndex("CreatedById");
 
+                    b.HasIndex("LanguageId");
+
                     b.HasIndex("ReviewedById");
 
                     b.ToTable("Snippets");
@@ -207,12 +209,19 @@ namespace CodeSnippetTool.Migrations
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
+                    b.HasOne("CodeSnippetTool.Models.Language", "Language")
+                        .WithMany("Snippets")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("CodeSnippetTool.Models.User", "ReviewedBy")
                         .WithMany("ReviewedSnippets")
                         .HasForeignKey("ReviewedById")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("Language");
 
                     b.Navigation("ReviewedBy");
                 });
@@ -247,6 +256,11 @@ namespace CodeSnippetTool.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CodeSnippetTool.Models.Language", b =>
+                {
+                    b.Navigation("Snippets");
                 });
 
             modelBuilder.Entity("CodeSnippetTool.Models.Snippet", b =>
