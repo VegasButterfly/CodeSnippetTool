@@ -1,6 +1,7 @@
 ﻿using CodeSnippetTool.Controllers;
 using CodeSnippetTool.Data;
 using CodeSnippetTool.Forms;
+using CodeSnippetTool.Services;
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
@@ -29,6 +30,7 @@ namespace CodeSnippetTool
 
             dataGridViewSnippets.CellClick += DataGridViewSnippets_CellClick;
             dataGridViewUsers.CellClick += DataGridViewUsers_CellClick;
+            OpenAIHelper.apiKey = txtAPIKey.Text;
         }
 
         private void LoadSnippets(string searchQuery = null)
@@ -141,7 +143,7 @@ namespace CodeSnippetTool
                         var idValue = dataGridViewUsers.Rows[rowIndex].Cells["Id"].Value;
 
                         int userId = Convert.ToInt32(idValue);
-                        
+
                         userController.DeleteUser(userId);
                         RefreshUserDataGridView();
                         MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -157,7 +159,7 @@ namespace CodeSnippetTool
                 MessageBox.Show("Please select a user to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-                
+
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -255,7 +257,7 @@ namespace CodeSnippetTool
                         var idValue = dataGridViewSnippets.Rows[rowIndex].Cells["Id"].Value;
 
                         int snippetId = Convert.ToInt32(idValue);
-                        
+
 
                         // Call DeleteSnippet method from SnippetController
                         snippetController.DeleteSnippet(snippetId);
@@ -294,12 +296,12 @@ namespace CodeSnippetTool
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {            
+        {
             Application.Exit();
         }
 
         private void DataGridViewSnippets_CellClick(object sender, DataGridViewCellEventArgs e)
-        {            
+        {
             if (e.RowIndex >= 0)
             {
                 // Get the row index of the clicked cell
@@ -310,13 +312,13 @@ namespace CodeSnippetTool
 
                 if (idValue != null)
                 {
-                    int snippetId = Convert.ToInt32(idValue);                      
+                    int snippetId = Convert.ToInt32(idValue);
                 }
             }
         }
 
         private void DataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
-        {            
+        {
             if (e.RowIndex >= 0)
             {
                 // Get the row index of the clicked cell
@@ -327,9 +329,16 @@ namespace CodeSnippetTool
 
                 if (idValue != null)
                 {
-                    int userId = Convert.ToInt32(idValue);                  
+                    int userId = Convert.ToInt32(idValue);
                 }
             }
+        }
+
+        private void SaveApiKey_Click(object sender, EventArgs e)
+        {
+            string apiKey = txtAPIKey.Text;
+            OpenAIHelper.apiKey = apiKey;
+            MessageBox.Show("API Key saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 

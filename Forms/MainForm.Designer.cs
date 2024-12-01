@@ -19,7 +19,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtAPIKey;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label4;
@@ -68,7 +68,7 @@
             DeleteLanguage = new Button();
             AddLanguage = new Button();
             label9 = new Label();
-            textBox3 = new TextBox();
+            txtAPIKey = new TextBox();
             label6 = new Label();
             textBox2 = new TextBox();
             maskedTextBox1 = new MaskedTextBox();
@@ -83,6 +83,9 @@
             searchButton = new Button();
             label8 = new Label();
             IconImage = new PictureBox();
+            label10 = new Label();
+            label11 = new Label();
+            SaveApiKey = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
@@ -252,11 +255,14 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(SaveApiKey);
+            tabPage3.Controls.Add(label11);
+            tabPage3.Controls.Add(label10);
             tabPage3.Controls.Add(EditLanguage);
             tabPage3.Controls.Add(DeleteLanguage);
             tabPage3.Controls.Add(AddLanguage);
             tabPage3.Controls.Add(label9);
-            tabPage3.Controls.Add(textBox3);
+            tabPage3.Controls.Add(txtAPIKey);
             tabPage3.Controls.Add(label6);
             tabPage3.Controls.Add(textBox2);
             tabPage3.Controls.Add(maskedTextBox1);
@@ -274,6 +280,7 @@
             // 
             // EditLanguage
             // 
+            EditLanguage.Enabled = false;
             EditLanguage.Location = new Point(235, 165);
             EditLanguage.Name = "EditLanguage";
             EditLanguage.Size = new Size(167, 23);
@@ -283,6 +290,7 @@
             // 
             // DeleteLanguage
             // 
+            DeleteLanguage.Enabled = false;
             DeleteLanguage.Location = new Point(235, 194);
             DeleteLanguage.Name = "DeleteLanguage";
             DeleteLanguage.Size = new Size(167, 23);
@@ -292,6 +300,7 @@
             // 
             // AddLanguage
             // 
+            AddLanguage.Enabled = false;
             AddLanguage.Location = new Point(235, 136);
             AddLanguage.Name = "AddLanguage";
             AddLanguage.Size = new Size(167, 23);
@@ -302,20 +311,20 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 32F);
+            label9.Font = new Font("Segoe UI", 9F);
             label9.ForeColor = Color.Firebrick;
-            label9.Location = new Point(335, 18);
+            label9.Location = new Point(138, 41);
             label9.Name = "label9";
-            label9.Size = new Size(591, 59);
+            label9.Size = new Size(167, 15);
             label9.TabIndex = 7;
             label9.Text = "Disabled. Future Functionality.";
             // 
-            // textBox3
+            // txtAPIKey
             // 
-            textBox3.Location = new Point(138, 67);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(162, 23);
-            textBox3.TabIndex = 6;
+            txtAPIKey.Location = new Point(138, 67);
+            txtAPIKey.Name = "txtAPIKey";
+            txtAPIKey.Size = new Size(162, 23);
+            txtAPIKey.TabIndex = 6;
             // 
             // label6
             // 
@@ -438,6 +447,38 @@
             IconImage.TabIndex = 7;
             IconImage.TabStop = false;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 9F);
+            label10.ForeColor = Color.Firebrick;
+            label10.Location = new Point(138, 99);
+            label10.Name = "label10";
+            label10.Size = new Size(167, 15);
+            label10.TabIndex = 11;
+            label10.Text = "Disabled. Future Functionality.";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 9F);
+            label11.ForeColor = Color.Firebrick;
+            label11.Location = new Point(28, 173);
+            label11.Name = "label11";
+            label11.Size = new Size(167, 15);
+            label11.TabIndex = 12;
+            label11.Text = "Disabled. Future Functionality.";
+            // 
+            // SaveApiKey
+            // 
+            SaveApiKey.Location = new Point(306, 66);
+            SaveApiKey.Name = "SaveApiKey";
+            SaveApiKey.Size = new Size(98, 23);
+            SaveApiKey.TabIndex = 13;
+            SaveApiKey.Text = "Save";
+            SaveApiKey.UseVisualStyleBackColor = true;
+            SaveApiKey.Click += SaveApiKey_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -489,5 +530,8 @@
         private Button AddLanguage;
         private Button EditLanguage;
         private Button DeleteLanguage;
+        private Button SaveApiKey;
+        private Label label11;
+        private Label label10;
     }
 }

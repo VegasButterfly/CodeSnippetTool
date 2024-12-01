@@ -171,7 +171,7 @@ namespace CodeSnippetTool
         private async void AnalyzeButton_Click(object sender, EventArgs e)
         {
             try
-            {
+            {           
                 // Validate that the CodeSnippetText and Language dropdown have values
                 if (string.IsNullOrEmpty(CodeSnippetText.Text))
                 {

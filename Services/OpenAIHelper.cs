@@ -8,7 +8,8 @@ namespace CodeSnippetTool.Services
 {
     public class OpenAIHelper
     {
-        private static readonly string apiKey = "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"; // Replace with your API key
+        public static string apiKey { get; set; }
+
         private static readonly string apiEndpoint = "https://api.openai.com/v1/chat/completions"; // OpenAI API endpoint
 
         // Method to get AI analysis of the code
