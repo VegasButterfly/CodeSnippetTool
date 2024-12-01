@@ -26,6 +26,9 @@ namespace CodeSnippetTool
             userForm.UserSaved += UserForm_UserSaved;
             SnippetForm snippetForm = new SnippetForm();
             snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
+
+            dataGridViewSnippets.CellClick += DataGridViewSnippets_CellClick;
+            dataGridViewUsers.CellClick += DataGridViewUsers_CellClick;
         }
 
         private void LoadSnippets(string searchQuery = null)
@@ -106,11 +109,13 @@ namespace CodeSnippetTool
 
         private void LoadUser_Click(object sender, EventArgs e)
         {
-            if (dataGridViewUsers.SelectedRows.Count > 0)
+            if (dataGridViewUsers.SelectedCells.Count > 0)
             {
                 this.Hide();
-                int userId = Convert.ToInt32(dataGridViewUsers.SelectedRows[0].Cells["Id"].Value);
+                int rowIndex = dataGridViewUsers.SelectedCells[0].RowIndex;
+                var idValue = dataGridViewUsers.Rows[rowIndex].Cells["Id"].Value;
 
+                int userId = Convert.ToInt32(idValue);
                 UserForm userForm = new UserForm();
                 userForm.LoadUser(userId);
                 userForm.UserSaved += UserForm_UserSaved;
@@ -125,14 +130,18 @@ namespace CodeSnippetTool
 
         private void DeleteUser_Click(object sender, EventArgs e)
         {
-            if (dataGridViewUsers.SelectedRows.Count > 0)
+            if (dataGridViewUsers.SelectedCells.Count > 0)
             {
-                var result = MessageBox.Show("Are you sure you want to delete this snippet?", "Delete Snippet", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var result = MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     try
                     {
-                        int userId = Convert.ToInt32(dataGridViewUsers.SelectedRows[0].Cells["Id"].Value);
+                        int rowIndex = dataGridViewUsers.SelectedCells[0].RowIndex;
+                        var idValue = dataGridViewUsers.Rows[rowIndex].Cells["Id"].Value;
+
+                        int userId = Convert.ToInt32(idValue);
+                        
                         userController.DeleteUser(userId);
                         RefreshUserDataGridView();
                         MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -203,6 +212,7 @@ namespace CodeSnippetTool
                                          user.Id,
                                          user.Username,
                                          role.RoleName,
+                                         user.Email,
                                      }).ToList();
                 dataGridViewUsers.DataSource = usersWithRole;
             }
@@ -210,10 +220,13 @@ namespace CodeSnippetTool
 
         private void LoadSnippet_Click(object sender, EventArgs e)
         {
-            if (dataGridViewSnippets.SelectedRows.Count > 0)
+            if (dataGridViewSnippets.SelectedCells.Count > 0)
             {
                 this.Hide();
-                int snippetId = Convert.ToInt32(dataGridViewSnippets.SelectedRows[0].Cells["Id"].Value);
+                int rowIndex = dataGridViewSnippets.SelectedCells[0].RowIndex;
+                var idValue = dataGridViewSnippets.Rows[rowIndex].Cells["Id"].Value;
+
+                int snippetId = Convert.ToInt32(idValue);
 
 
                 SnippetForm snippetForm = new SnippetForm();
@@ -230,7 +243,7 @@ namespace CodeSnippetTool
 
         private void DeleteSnippet_Click(object sender, EventArgs e)
         {
-            if (dataGridViewSnippets.SelectedRows.Count > 0)
+            if (dataGridViewSnippets.SelectedCells.Count > 0)
             {
 
                 var result = MessageBox.Show("Are you sure you want to delete this snippet?", "Delete Snippet", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -238,7 +251,11 @@ namespace CodeSnippetTool
                 {
                     try
                     {
-                        int snippetId = Convert.ToInt32(dataGridViewSnippets.SelectedRows[0].Cells["Id"].Value);
+                        int rowIndex = dataGridViewSnippets.SelectedCells[0].RowIndex;
+                        var idValue = dataGridViewSnippets.Rows[rowIndex].Cells["Id"].Value;
+
+                        int snippetId = Convert.ToInt32(idValue);
+                        
 
                         // Call DeleteSnippet method from SnippetController
                         snippetController.DeleteSnippet(snippetId);
@@ -279,6 +296,40 @@ namespace CodeSnippetTool
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {            
             Application.Exit();
+        }
+
+        private void DataGridViewSnippets_CellClick(object sender, DataGridViewCellEventArgs e)
+        {            
+            if (e.RowIndex >= 0)
+            {
+                // Get the row index of the clicked cell
+                int rowIndex = e.RowIndex;
+
+                // Get the cell value of the Id column (assuming "Id" is the column name)
+                var idValue = dataGridViewSnippets.Rows[rowIndex].Cells["Id"].Value;
+
+                if (idValue != null)
+                {
+                    int snippetId = Convert.ToInt32(idValue);                      
+                }
+            }
+        }
+
+        private void DataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {            
+            if (e.RowIndex >= 0)
+            {
+                // Get the row index of the clicked cell
+                int rowIndex = e.RowIndex;
+
+                // Get the cell value of the Id column (assuming "Id" is the column name)
+                var idValue = dataGridViewUsers.Rows[rowIndex].Cells["Id"].Value;
+
+                if (idValue != null)
+                {
+                    int userId = Convert.ToInt32(idValue);                  
+                }
+            }
         }
     }
 
