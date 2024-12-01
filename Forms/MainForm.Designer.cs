@@ -11,7 +11,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddSnippet;
         private System.Windows.Forms.DataGridView dataGridViewSnippets;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
@@ -23,7 +23,7 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView dataGridViewLanguages;
         private System.Windows.Forms.Label label7;
 
         /// <summary>
@@ -47,18 +47,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             RefreshButton = new Button();
             DeleteSnippet = new Button();
             LoadSnippet = new Button();
-            button1 = new Button();
+            AddSnippet = new Button();
             dataGridViewSnippets = new DataGridView();
             label1 = new Label();
             tabPage2 = new TabPage();
+            RefreshUserList = new Button();
+            DeleteUser = new Button();
+            LoadUser = new Button();
+            AddUser = new Button();
             label3 = new Label();
             dataGridViewUsers = new DataGridView();
             tabPage3 = new TabPage();
+            EditLanguage = new Button();
+            DeleteLanguage = new Button();
+            AddLanguage = new Button();
             label9 = new Label();
             textBox3 = new TextBox();
             label6 = new Label();
@@ -66,7 +74,7 @@
             maskedTextBox1 = new MaskedTextBox();
             label5 = new Label();
             label4 = new Label();
-            dataGridView3 = new DataGridView();
+            dataGridViewLanguages = new DataGridView();
             label2 = new Label();
             textBox1 = new TextBox();
             label7 = new Label();
@@ -74,13 +82,15 @@
             searchTextBox = new TextBox();
             searchButton = new Button();
             label8 = new Label();
+            IconImage = new PictureBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSnippets).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).BeginInit();
             tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewLanguages).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)IconImage).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -88,27 +98,27 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Location = new Point(12, 64);
+            tabControl1.Location = new Point(21, 75);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1322, 505);
+            tabControl1.Size = new Size(1294, 425);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            tabPage1.BackColor = Color.WhiteSmoke;
             tabPage1.Controls.Add(RefreshButton);
             tabPage1.Controls.Add(DeleteSnippet);
             tabPage1.Controls.Add(LoadSnippet);
-            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(AddSnippet);
             tabPage1.Controls.Add(dataGridViewSnippets);
             tabPage1.Controls.Add(label1);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1314, 477);
+            tabPage1.Size = new Size(1286, 397);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Snippets";
-            tabPage1.UseVisualStyleBackColor = true;
             // 
             // RefreshButton
             // 
@@ -140,15 +150,15 @@
             LoadSnippet.UseVisualStyleBackColor = true;
             LoadSnippet.Click += LoadSnippet_Click;
             // 
-            // button1
+            // AddSnippet
             // 
-            button1.Location = new Point(1043, 14);
-            button1.Name = "button1";
-            button1.Size = new Size(213, 62);
-            button1.TabIndex = 4;
-            button1.Text = "Add Snippet";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            AddSnippet.Location = new Point(1043, 14);
+            AddSnippet.Name = "AddSnippet";
+            AddSnippet.Size = new Size(213, 62);
+            AddSnippet.TabIndex = 4;
+            AddSnippet.Text = "Add Snippet";
+            AddSnippet.UseVisualStyleBackColor = true;
+            AddSnippet.Click += AddSnippet_Click;
             // 
             // dataGridViewSnippets
             // 
@@ -169,15 +179,59 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(RefreshUserList);
+            tabPage2.Controls.Add(DeleteUser);
+            tabPage2.Controls.Add(LoadUser);
+            tabPage2.Controls.Add(AddUser);
             tabPage2.Controls.Add(label3);
             tabPage2.Controls.Add(dataGridViewUsers);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1314, 477);
+            tabPage2.Size = new Size(1286, 397);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Users";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // RefreshUserList
+            // 
+            RefreshUserList.Location = new Point(1042, 303);
+            RefreshUserList.Name = "RefreshUserList";
+            RefreshUserList.Size = new Size(214, 64);
+            RefreshUserList.TabIndex = 11;
+            RefreshUserList.Text = "Refresh / List All";
+            RefreshUserList.UseVisualStyleBackColor = true;
+            RefreshUserList.Click += RefreshUserList_Click;
+            // 
+            // DeleteUser
+            // 
+            DeleteUser.Location = new Point(1043, 209);
+            DeleteUser.Name = "DeleteUser";
+            DeleteUser.Size = new Size(213, 67);
+            DeleteUser.TabIndex = 10;
+            DeleteUser.Text = "Delete Selected User";
+            DeleteUser.UseVisualStyleBackColor = true;
+            DeleteUser.Click += DeleteUser_Click;
+            // 
+            // LoadUser
+            // 
+            LoadUser.Location = new Point(1043, 108);
+            LoadUser.Name = "LoadUser";
+            LoadUser.Size = new Size(213, 67);
+            LoadUser.TabIndex = 9;
+            LoadUser.Text = "Load Selected User";
+            LoadUser.UseVisualStyleBackColor = true;
+            LoadUser.Click += LoadUser_Click;
+            // 
+            // AddUser
+            // 
+            AddUser.Location = new Point(1043, 14);
+            AddUser.Name = "AddUser";
+            AddUser.Size = new Size(213, 62);
+            AddUser.TabIndex = 8;
+            AddUser.Text = "Add User";
+            AddUser.UseVisualStyleBackColor = true;
+            AddUser.Click += AddUser_Click;
             // 
             // label3
             // 
@@ -191,13 +245,16 @@
             // dataGridViewUsers
             // 
             dataGridViewUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewUsers.Location = new Point(6, 32);
+            dataGridViewUsers.Location = new Point(8, 50);
             dataGridViewUsers.Name = "dataGridViewUsers";
-            dataGridViewUsers.Size = new Size(493, 193);
+            dataGridViewUsers.Size = new Size(971, 333);
             dataGridViewUsers.TabIndex = 0;
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(EditLanguage);
+            tabPage3.Controls.Add(DeleteLanguage);
+            tabPage3.Controls.Add(AddLanguage);
             tabPage3.Controls.Add(label9);
             tabPage3.Controls.Add(textBox3);
             tabPage3.Controls.Add(label6);
@@ -205,26 +262,53 @@
             tabPage3.Controls.Add(maskedTextBox1);
             tabPage3.Controls.Add(label5);
             tabPage3.Controls.Add(label4);
-            tabPage3.Controls.Add(dataGridView3);
+            tabPage3.Controls.Add(dataGridViewLanguages);
             tabPage3.Controls.Add(label2);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1314, 477);
+            tabPage3.Size = new Size(1286, 397);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Settings";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // EditLanguage
+            // 
+            EditLanguage.Location = new Point(235, 165);
+            EditLanguage.Name = "EditLanguage";
+            EditLanguage.Size = new Size(167, 23);
+            EditLanguage.TabIndex = 10;
+            EditLanguage.Text = "Edit Language";
+            EditLanguage.UseVisualStyleBackColor = true;
+            // 
+            // DeleteLanguage
+            // 
+            DeleteLanguage.Location = new Point(235, 194);
+            DeleteLanguage.Name = "DeleteLanguage";
+            DeleteLanguage.Size = new Size(167, 23);
+            DeleteLanguage.TabIndex = 9;
+            DeleteLanguage.Text = "Delete Language";
+            DeleteLanguage.UseVisualStyleBackColor = true;
+            // 
+            // AddLanguage
+            // 
+            AddLanguage.Location = new Point(235, 136);
+            AddLanguage.Name = "AddLanguage";
+            AddLanguage.Size = new Size(167, 23);
+            AddLanguage.TabIndex = 8;
+            AddLanguage.Text = "Add Language";
+            AddLanguage.UseVisualStyleBackColor = true;
+            // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 54F);
+            label9.Font = new Font("Segoe UI", 32F);
             label9.ForeColor = Color.Firebrick;
             label9.Location = new Point(335, 18);
             label9.Name = "label9";
-            label9.Size = new Size(668, 96);
+            label9.Size = new Size(591, 59);
             label9.TabIndex = 7;
-            label9.Text = "Future Functionality";
+            label9.Text = "Disabled. Future Functionality.";
             // 
             // textBox3
             // 
@@ -261,9 +345,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(6, 41);
             label5.Name = "label5";
-            label5.Size = new Size(52, 15);
+            label5.Size = new Size(65, 15);
             label5.TabIndex = 2;
-            label5.Text = "API URL:";
+            label5.Text = "API Model:";
             // 
             // label4
             // 
@@ -274,13 +358,13 @@
             label4.TabIndex = 1;
             label4.Text = "Endpoint:";
             // 
-            // dataGridView3
+            // dataGridViewLanguages
             // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(6, 125);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.Size = new Size(1289, 345);
-            dataGridView3.TabIndex = 0;
+            dataGridViewLanguages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewLanguages.Location = new Point(6, 125);
+            dataGridViewLanguages.Name = "dataGridViewLanguages";
+            dataGridViewLanguages.Size = new Size(215, 144);
+            dataGridViewLanguages.TabIndex = 0;
             // 
             // label2
             // 
@@ -311,7 +395,7 @@
             ExitButton.Name = "ExitButton";
             ExitButton.Size = new Size(124, 35);
             ExitButton.TabIndex = 1;
-            ExitButton.Text = "Exit Program";
+            ExitButton.Text = "&Exit Program";
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += ExitButton_Click;
             // 
@@ -337,23 +421,40 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Malgun Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(16, 9);
+            label8.Location = new Point(82, 9);
             label8.Name = "label8";
             label8.Size = new Size(304, 45);
             label8.TabIndex = 6;
             label8.Text = "Code Snippet Tool";
             // 
+            // IconImage
+            // 
+            IconImage.Image = (Image)resources.GetObject("IconImage.Image");
+            IconImage.InitialImage = (Image)resources.GetObject("IconImage.InitialImage");
+            IconImage.Location = new Point(21, 13);
+            IconImage.Name = "IconImage";
+            IconImage.Size = new Size(55, 42);
+            IconImage.SizeMode = PictureBoxSizeMode.Zoom;
+            IconImage.TabIndex = 7;
+            IconImage.TabStop = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1346, 575);
+            BackColor = Color.LavenderBlush;
+            ClientSize = new Size(1329, 512);
+            Controls.Add(IconImage);
             Controls.Add(label8);
             Controls.Add(searchButton);
             Controls.Add(searchTextBox);
             Controls.Add(ExitButton);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Code Snippet Tool";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
@@ -364,7 +465,8 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).EndInit();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewLanguages).EndInit();
+            ((System.ComponentModel.ISupportInitialize)IconImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -379,5 +481,13 @@
         private Button searchButton;
         private Label label8;
         private Label label9;
+        private PictureBox IconImage;
+        private Button RefreshUserList;
+        private Button DeleteUser;
+        private Button LoadUser;
+        private Button AddUser;
+        private Button AddLanguage;
+        private Button EditLanguage;
+        private Button DeleteLanguage;
     }
 }

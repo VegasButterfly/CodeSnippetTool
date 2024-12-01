@@ -20,15 +20,12 @@ namespace CodeSnippetTool.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // User-Roles M:M Relationship
+            // User-Roles 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.Roles)
+                .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "UserRoles",
-                    j => j.HasOne<Role>().WithMany().HasForeignKey("RoleId"),
-                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId"),
-                    j => j.HasKey("UserId", "RoleId"));
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Role
             modelBuilder.Entity<Role>()

@@ -40,14 +40,14 @@ namespace CodeSnippetTool.Services.Authentication
                                 Username = "Admin",
                                 PasswordHash = adminPasswordHash,
                                 Salt = adminSalt,
-                                Roles = new List<Role> {adminRole}
+                                RoleId = adminRole.Id
                             },
                              new User
                             {
-                            Username = "Demo",
-                            PasswordHash = demoPasswordHash,
-                            Salt = demoSalt,
-                            Roles = new List<Role> {demoRole}
+                                Username = "Demo",
+                                PasswordHash = demoPasswordHash,
+                                Salt = demoSalt,
+                                RoleId = demoRole.Id
                             }
                         };
                         context.Users.AddRange(users);
@@ -59,25 +59,22 @@ namespace CodeSnippetTool.Services.Authentication
 
         public static void AssignRoleToUser(AppDbContext context, string username, string roleName)
         {
-            var user = context.Users.Include(u => u.Roles).FirstOrDefault(u => u.Username == username);
+            var user = context.Users.FirstOrDefault(u => u.Username == username);
             var role = context.Roles.FirstOrDefault(r => r.RoleName == roleName);
 
             if (user == null || role == null)
                 throw new Exception("User or Role not found.");
-
-            if (!user.Roles.Contains(role))
-            {
-                user.Roles.Add(role);
-                context.SaveChanges();
-            }
+                        
+            user.RoleId = role.Id;
+            context.SaveChanges();
         }
 
         public static bool UserHasRole(AppDbContext context, string username, string roleName)
         {
-            var user = context.Users.Include(u => u.Roles)
+            var user = context.Users.Include(u => u.Role)
                                     .FirstOrDefault(u => u.Username == username);
 
-            return user != null && user.Roles.Any(r => r.RoleName == roleName);
+            return user != null && user.Role != null && user.Role.RoleName == roleName;
         }
 
     }

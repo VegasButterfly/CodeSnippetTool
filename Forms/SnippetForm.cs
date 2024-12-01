@@ -17,6 +17,7 @@ namespace CodeSnippetTool
         public SnippetForm()
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("CodeSnippetTool.ico");
             LoadLanguages();
         }
 
@@ -112,9 +113,9 @@ namespace CodeSnippetTool
                 SnippetLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
                 SnippetLanguageDropdown.ValueMember = "Id";             // The value to use for data binding
 
-                TranslationLanguageDropdown.DataSource = languages;
-                TranslationLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
-                TranslationLanguageDropdown.ValueMember = "Id";             // The value to use for data binding             
+                ///TranslationLanguageDropdown.DataSource = languages;
+                ///TranslationLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
+                ///TranslationLanguageDropdown.ValueMember = "Id";             // The value to use for data binding             
 
             }
         }
@@ -223,8 +224,8 @@ namespace CodeSnippetTool
 
                 var translation = new Translation
                 {
-                    Language = TranslationLanguageDropdown.Text,
-                    TranslationText = TranslationText.Text,
+                    ///Language = TranslationLanguageDropdown.Text,
+                    ///TranslationText = TranslationText.Text,
                     Reviewed = false,  // Default value if not reviewed
                     ReviewerId = null,  // No reviewer yet
                     ReviewDate = null  // No review date yet
@@ -241,7 +242,7 @@ namespace CodeSnippetTool
                 MessageBox.Show($"Error saving translation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-       
+              
     }
 }
 

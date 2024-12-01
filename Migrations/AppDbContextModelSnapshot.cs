@@ -167,6 +167,9 @@ namespace CodeSnippetTool.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -177,25 +180,12 @@ namespace CodeSnippetTool.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("UserRoles", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("CodeSnippetTool.Models.Snippet", b =>
@@ -240,24 +230,25 @@ namespace CodeSnippetTool.Migrations
                     b.Navigation("Snippet");
                 });
 
-            modelBuilder.Entity("UserRoles", b =>
+            modelBuilder.Entity("CodeSnippetTool.Models.User", b =>
                 {
-                    b.HasOne("CodeSnippetTool.Models.Role", null)
-                        .WithMany()
+                    b.HasOne("CodeSnippetTool.Models.Role", "Role")
+                        .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CodeSnippetTool.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("CodeSnippetTool.Models.Language", b =>
                 {
                     b.Navigation("Snippets");
+                });
+
+            modelBuilder.Entity("CodeSnippetTool.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("CodeSnippetTool.Models.Snippet", b =>

@@ -1,5 +1,6 @@
 ﻿using CodeSnippetTool.Data;
 using CodeSnippetTool.Models;
+using CodeSnippetTool.Services.Authentication;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -11,46 +12,74 @@ namespace CodeSnippetTool.Controllers
         {
             using var context = new AppDbContext();
             return context.Users
-                .Include(u => u.Roles)
+                .Include(u => u.Role)  
                 .Select(u => new
                 {
                     Id = u.Id,
                     Username = u.Username,
-                    RoleNames = string.Join(", ", u.Roles.Select(r => r.RoleName)) 
+                    RoleName = u.Role.RoleName
                 })
                 .Cast<dynamic>()
                 .ToList();
         }
 
-        
-        public void AddUser(User user)
+        public List<Role> GetAllRoles()
         {
             using var context = new AppDbContext();
+            return context.Roles.ToList();
+        }
+
+        public Role GetRoleById(int roleId)
+        {
+            using var context = new AppDbContext();
+            return context.Roles.FirstOrDefault(r => r.Id == roleId);
+        }
+
+        public void AddUser(string userName, string password, string email, Role role)
+        {
+            using var context = new AppDbContext();
+
+            // Hash the password with the generated salt
+            string salt = SaltIt.GenerateSalt();
+            string hashedPassword = SaltIt.HashPassword(password, salt);
+
+            var user = new User
+            {
+                Username = userName,
+                PasswordHash = hashedPassword,
+                Salt = salt,
+                Email = email,
+                Role = role  
+            };
+
             context.Users.Add(user);
             context.SaveChanges();
         }
 
-        
-        public void UpdateUser(int userId, string userName, string userRole)
+        public void UpdateUser(int userId, string userName, string email, Role role, string? newPassword = null)
         {
             using var context = new AppDbContext();
-            var user = context.Users.Include(u => u.Roles).FirstOrDefault(u => u.Id == userId);
+            var user = context.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == userId);
 
             if (user != null)
             {
                 user.Username = userName;
-                                
-                var role = context.Roles.FirstOrDefault(r => r.RoleName == userRole); // Assuming you use RoleName for matching
-                if (role != null)
+                user.Email = email;
+                user.Role = role;
+
+                // If there's a new password, hash it and update the password and salt
+                if (!string.IsNullOrEmpty(newPassword))
                 {
-                    user.Roles.Clear(); 
-                    user.Roles.Add(role);
-                }
+                    string newSalt = SaltIt.GenerateSalt();
+                    string newHashedPassword = SaltIt.HashPassword(newPassword, newSalt);
+                    user.PasswordHash = newHashedPassword;
+                    user.Salt = newSalt;
+                }                                               
 
                 context.SaveChanges();
             }
         }
-                
+
         public void DeleteUser(int userId)
         {
             using var context = new AppDbContext();
@@ -61,5 +90,6 @@ namespace CodeSnippetTool.Controllers
                 context.SaveChanges();
             }
         }
+
     }
 }

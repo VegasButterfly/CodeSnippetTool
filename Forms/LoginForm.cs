@@ -10,6 +10,7 @@ namespace CodeSnippetTool
         public LoginForm()
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("CodeSnippetTool.ico");
             // enter key activates login just because it's driving me crazy!!!!!
             this.AcceptButton = LoginButton;
         }

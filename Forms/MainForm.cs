@@ -1,7 +1,9 @@
 ﻿using CodeSnippetTool.Controllers;
 using CodeSnippetTool.Data;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+using CodeSnippetTool.Forms;
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace CodeSnippetTool
 {
@@ -13,11 +15,14 @@ namespace CodeSnippetTool
         public MainForm()
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("CodeSnippetTool.ico");
             userController = new UserController();
             snippetController = new SnippetController();
             LoadUsers();
             LoadSnippets();
 
+            UserForm userForm = new UserForm();
+            userForm.UserSaved += UserForm_UserSaved;
             SnippetForm snippetForm = new SnippetForm();
             snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
         }
@@ -65,8 +70,23 @@ namespace CodeSnippetTool
         {
             try
             {
-                var users = userController.GetAllUsers();
-                dataGridViewUsers.DataSource = users;
+                using (var context = new AppDbContext())
+                {
+                    //Perform a LINQ join between Users and Roles based on RoleId
+                    var query = from user in context.Users
+                                join role in context.Roles
+                                on user.RoleId equals role.Id
+                                select new
+                                {
+                                    user.Id,
+                                    user.Username,
+                                    RoleName = role.RoleName,
+                                    user.Email,
+                                };
+                    var usersWithRole = query.ToList();
+
+                    dataGridViewUsers.DataSource = usersWithRole;
+                }
             }
             catch (Exception ex)
             {
@@ -74,12 +94,66 @@ namespace CodeSnippetTool
             }
         }
 
+        private void AddUser_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserForm userForm = new UserForm();
+            userForm.UserSaved += UserForm_UserSaved;
+            userForm.FormClosed += (s, arg) => this.Show();
+            userForm.Show();
+        }
+
+        private void LoadUser_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsers.SelectedRows.Count > 0)
+            {
+                this.Hide();
+                int userId = Convert.ToInt32(dataGridViewUsers.SelectedRows[0].Cells["Id"].Value);
+
+                UserForm userForm = new UserForm();
+                userForm.LoadUser(userId);
+                userForm.UserSaved += UserForm_UserSaved;
+                userForm.FormClosed += (s, arg) => this.Show();
+                userForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to load.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DeleteUser_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsers.SelectedRows.Count > 0)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this snippet?", "Delete Snippet", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        int userId = Convert.ToInt32(dataGridViewUsers.SelectedRows[0].Cells["Id"].Value);
+                        userController.DeleteUser(userId);
+                        RefreshUserDataGridView();
+                        MessageBox.Show("User deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while deleting the user: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+                
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddSnippet_Click(object sender, EventArgs e)
         {
             this.Hide();
             SnippetForm snippetForm = new SnippetForm();
@@ -93,6 +167,10 @@ namespace CodeSnippetTool
             RefreshSnippetDataGridView();
         }
 
+        private void UserForm_UserSaved(object sender, EventArgs e)
+        {
+            RefreshUserDataGridView();
+        }
 
         private void RefreshSnippetDataGridView()
         {
@@ -112,6 +190,23 @@ namespace CodeSnippetTool
             }
         }
 
+        private void RefreshUserDataGridView()
+        {
+            using (var context = new AppDbContext())
+            {
+                var usersWithRole = (from user in context.Users
+                                     join role in context.Roles
+                                     on user.RoleId equals role.Id
+                                     select new
+                                     {
+                                         user.Id,
+                                         user.Username,
+                                         role.RoleName,
+                                     }).ToList();
+                dataGridViewUsers.DataSource = usersWithRole;
+            }
+        }
+
         private void LoadSnippet_Click(object sender, EventArgs e)
         {
             if (dataGridViewSnippets.SelectedRows.Count > 0)
@@ -121,7 +216,7 @@ namespace CodeSnippetTool
 
 
                 SnippetForm snippetForm = new SnippetForm();
-                snippetForm.LoadSnippet(snippetId);                
+                snippetForm.LoadSnippet(snippetId);
                 snippetForm.SnippetSaved += SnippetForm_SnippetSaved;
                 snippetForm.FormClosed += (s, args) => this.Show();
                 snippetForm.Show();
@@ -173,7 +268,12 @@ namespace CodeSnippetTool
         {
             string searchQuery = searchTextBox.Text.Trim();
             LoadSnippets(searchQuery);
-        }        
+        }
+
+        private void RefreshUserList_Click(object sender, EventArgs e)
+        {
+            RefreshUserDataGridView();
+        }
     }
-    
+
 }
