@@ -13,12 +13,13 @@ namespace CodeSnippetTool
     {
         private SnippetController _controller = new SnippetController();
         private int loadedSnippetId = 0;
+        private bool isLanguageProgrammaticChange = false;
 
         public SnippetForm()
         {
             InitializeComponent();
             this.Icon = new System.Drawing.Icon("CodeSnippetTool.ico");
-            LoadLanguages();
+            LoadLanguages();           
         }
 
         public event EventHandler SnippetSaved;
@@ -104,6 +105,8 @@ namespace CodeSnippetTool
         {
             using (var context = new AppDbContext())
             {
+                SnippetLanguageDropdown.SelectedIndexChanged -= SnippetLanguageDropdown_SelectedIndexChanged;
+
                 // Get the list of languages from the database
                 var languages = context.Languages.ToList();
                 languages.Insert(0, new Language { Id = 0, LanguageName = "Select a language" });
@@ -113,9 +116,12 @@ namespace CodeSnippetTool
                 SnippetLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
                 SnippetLanguageDropdown.ValueMember = "Id";             // The value to use for data binding
 
+
                 ///TranslationLanguageDropdown.DataSource = languages;
                 ///TranslationLanguageDropdown.DisplayMember = "LanguageName";  // The property to display
                 ///TranslationLanguageDropdown.ValueMember = "Id";             // The value to use for data binding             
+                
+                SnippetLanguageDropdown.SelectedIndexChanged += SnippetLanguageDropdown_SelectedIndexChanged;
 
             }
         }
@@ -130,6 +136,8 @@ namespace CodeSnippetTool
 
                 if (snippet != null)
                 {
+                    SnippetLanguageDropdown.SelectedIndexChanged -= SnippetLanguageDropdown_SelectedIndexChanged;
+
                     loadedSnippetId = snippet.Id;
 
                     SnippetName.Text = snippet.SnippetName;
@@ -139,7 +147,10 @@ namespace CodeSnippetTool
                     SnippetLanguageDropdown.SelectedValue = snippet.LanguageId;
                     CreatedByLabel.Text = $"Created By: {snippet.CreatedBy?.Username ?? "Not Saved"}";
                     CreatedOnLabel.Text = $"Created On: {snippet.CreatedDate:MM/dd/yyyy}";
+
+                    SnippetLanguageDropdown.SelectedIndexChanged += SnippetLanguageDropdown_SelectedIndexChanged;
                 }
+            
                 else
                 {
                     MessageBox.Show("Snippet not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -242,7 +253,52 @@ namespace CodeSnippetTool
                 MessageBox.Show($"Error saving translation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-              
+
+        private void SnippetLanguageDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (isLanguageProgrammaticChange) return;
+
+                // Get the currently selected language ID
+                int selectedLanguageId = (int)SnippetLanguageDropdown.SelectedValue;
+
+                // If AnalysisText is not empty and a snippet is loaded, prompt the user
+                if (!string.IsNullOrEmpty(AnalysisText.Text) && loadedSnippetId > 0)
+                {
+                    var result = MessageBox.Show(
+                        "Translation feature is not enabled at this time. The analysis will be cleared, and a new AI analysis should be run before saving. Do you wish to continue changing the language?",
+                        "Language Change Confirmation",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Allow language change and clear AnalysisText
+                        this.AnalysisText.Clear();
+                    }
+                    else
+                    {
+                        isLanguageProgrammaticChange = true;
+                        // Revert to the previously saved language
+                        using (var context = new AppDbContext())
+                        {
+                            var snippet = context.Snippets.FirstOrDefault(s => s.Id == loadedSnippetId);
+                            if (snippet != null)
+                            {
+                                SnippetLanguageDropdown.SelectedValue = snippet.LanguageId;
+                            }
+                        }
+                        isLanguageProgrammaticChange = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while changing the language: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
 

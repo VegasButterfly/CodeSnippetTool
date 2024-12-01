@@ -16,6 +16,7 @@ namespace CodeSnippetTool
         {
             InitializeComponent();
             this.Icon = new System.Drawing.Icon("CodeSnippetTool.ico");
+            this.FormClosing += MainForm_FormClosing;
             userController = new UserController();
             snippetController = new SnippetController();
             LoadUsers();
@@ -273,6 +274,11 @@ namespace CodeSnippetTool
         private void RefreshUserList_Click(object sender, EventArgs e)
         {
             RefreshUserDataGridView();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {            
+            Application.Exit();
         }
     }
 

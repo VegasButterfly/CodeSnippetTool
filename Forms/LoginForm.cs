@@ -11,12 +11,10 @@ namespace CodeSnippetTool
         {
             InitializeComponent();
             this.Icon = new System.Drawing.Icon("CodeSnippetTool.ico");
+            this.FormClosing += LoginForm_FormClosing;
             // enter key activates login just because it's driving me crazy!!!!!
             this.AcceptButton = LoginButton;
         }
-
-
-
 
         private void LoginButton_Click(object? sender, EventArgs e)
         {
@@ -105,6 +103,11 @@ namespace CodeSnippetTool
                 // Show a message if the URL fails to open
                 MessageBox.Show($"Failed to open URL: {ex.Message}");
             }
+        }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
