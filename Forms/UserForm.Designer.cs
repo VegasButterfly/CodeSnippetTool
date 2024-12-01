@@ -175,8 +175,10 @@
             Controls.Add(UserSaveButton);
             Controls.Add(IconImage);
             Controls.Add(label8);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UserForm";
-            Text = "UserForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Code Snippet Tool";
             ((System.ComponentModel.ISupportInitialize)IconImage).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -195,7 +195,7 @@
             label8.Name = "label8";
             label8.Size = new Size(304, 45);
             label8.TabIndex = 21;
-            label8.Text = "Code Snippet Tool";
+            label8.Text = "Add / Edit Snippet";
             // 
             // SourceLanguageLabel
             // 
